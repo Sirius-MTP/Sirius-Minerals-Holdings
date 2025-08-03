@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact – Sirius Minerals Holdings</title>
+  <meta name="description" content="Get in touch with Sirius Minerals Holdings.">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="logo2.jpeg" />
+
+  <!-- EmailJS Library -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("56KjKuo-2aPaRnbUl"); // Public key
+    })();
+  </script>
+</head>
+<body>
+<header>
+  <div class="container inner">
+    <a class="logo" href="index.html">
+      <img src="logo2.jpeg" alt="Sirius Minerals Holdings Logo">
+      Sirius <span style="color:var(--gold)">Contact</span>
+    </a>
+    <button class="mobile-toggle" aria-label="Open menu">☰</button>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="mtp.html">Sirius MTP</a></li>
+        <li><a href="miner-guide.html">Miner Guide</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html" class="btn btn-primary">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <h1>Contact Us</h1>
+    <p class="big">
+      Reach out to discuss partnerships, onboarding, compliance, or platform access.
+    </p>
+
+    <div class="grid grid-2 section-tight">
+      <div>
+        <h3>Get in touch</h3>
+        <form id="contactForm">
+          <div class="input-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="from_name" placeholder="Your name" required>
+          </div>
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="from_email" placeholder="you@example.com" required>
+          </div>
+          <div class="input-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="How can we help?" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <a href="mtp.html#signup" class="btn btn-outline">Sign up to Sirius MTP</a>
+        </form>
+        <p id="statusMessage" style="margin-top:10px; font-weight:bold;"></p>
+      </div>
+
+      <div>
+        <h3>Offices</h3>
+        <p>
+          <strong>South Africa (HoldCo)</strong><br/>
+          Sirius Minerals Holdings<br/>
+          <span class="muted"> Johannesburg - South Africa </span><br/><br/>
+
+          <strong>Zambia (Operations)</strong><br/>
+          Sirius Minerals & Precious Stones Ltd<br/>
+          <span class="muted"> Lusaka - Zambia </span>
+        </p>
+
+        <h3>Email</h3>
+        <p><a href="sirius.minerals@yahoo.com">sirius.minerals@yahoo.com</a></p>
+
+        <h3>Phone</h3>
+        <p class="muted">+260 761 469412 (ZM) / +27 740657076 (SA)</p>
+
+        <h3>Social</h3>
+        <p class="muted">LinkedIn, Twitter/X - follow us @ Sirius Minerals & Precious Stones</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="top">
+      <div>
+        <a class="hero-footer-logo" href="index.html" style="color:#fff;">
+          <img src="Siriuskhumo.jpeg" alt="Sirius Minerals Holdings Logo">
+          Affliate Companies
+        </a>
+        <p class="small muted" style="margin-top:.75rem;">
+          khumo Mineral Brokers & Consultants Group Partners of Sirius Minerals Holdings (South Africa) and
+          Sirius Minerals & Precious Stones Ltd (Zambia).
+        </p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul style="list-style:none; padding:0; margin:0;">
+          <li><a href="about.html">About</a></li>
+          <li><a href="mtp.html">Sirius MTP</a></li>
+          <li><a href="miner-guide.html">Miner Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul style="list-style:none; padding:0; margin:0;">
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="sirius.minerals@yahoo.com">sirius.minerals@yahoo.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bottom">
+      © <span id="year"></span> Sirius Minerals Holdings. All rights reserved.
+    </div>
+  </div>
+</footer>
+<script src="app.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    emailjs.sendForm("service_w1crjam", "template_kerpvt8", this)
+    .then(function() {
+        document.getElementById("statusMessage").innerText = "✅ Your message has been sent successfully!";
+        document.getElementById("statusMessage").style.color = "green";
+        document.getElementById("contactForm").reset();
+    }, function(error) {
+        document.getElementById("statusMessage").innerText = "❌ Failed to send message. Please try again.";
+        document.getElementById("statusMessage").style.color = "red";
+        console.error("EmailJS Error:", error);
+    });
+});
+</script>
+
+</body>
+</html>
