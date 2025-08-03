@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Features – Sirius MTP</title>
+  <meta name="description" content="Explore Sirius MTP features, screenshots, steps, and benefits.">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="logo2.jpeg" />
+</head>
+<body>
+<header>
+  <div class="container inner">
+    <a class="logo" href="index.html">
+      <img src="logo2.jpeg" alt="Sirius Minerals Holdings Logo">
+      Sirius <span style="color:var(--gold)">Features</span>
+    </a>
+    <button class="mobile-toggle" aria-label="Open menu">☰</button>
+    <nav>
+      <ul>
+       <li><a href="index.html">Home</a></li>
+        <li><a href="mtp.html">Sirius MTP</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="miner-guide.html">Miner Guide</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html" class="btn btn-primary">Services</a></li>
+        <li><a href="contact.html" class="btn btn-outline">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <h1>Discover Sirius MTP Features</h1>
+    <p class="big">
+      The Sirius Mineral Trade Platform (MTP) is designed to empower miners, traders, and buyers through
+      advanced technology and user-friendly tools.
+    </p>
+
+    <h2>Platform Screenshots</h2>
+    <div class="grid grid-3 section-tight">
+      <div class="card">
+        <img src="mobileSH.png" alt="Mobile MTP Screenshot" style="width:100%; border-radius:8px;">
+        <p class="small muted" style="margin-top:.5rem;">Mobile Image Uploads to AI tool</p>
+      </div>
+      <div class="card">
+        <img src="mobileresults.png" alt="Tablet MTP Screenshot" style="width:100%; border-radius:8px;">
+        <p class="small muted" style="margin-top:.5rem;"> AI Identification Anaylsis</p>
+      </div>
+      <div class="card">
+        <img src="updatepanel0.jpg" alt="PC MTP Screenshot" style="width:100%; border-radius:8px;">
+        <p class="small muted" style="margin-top:.5rem;">Supplier Dashboard</p>
+      </div>
+    </div>
+
+    <h2>Step-by-Step Use</h2>
+    <div class="grid grid-2 section-tight">
+      <div class="card">
+        <h3>Step 1: Register & Verify</h3>
+        <p>
+          Sign up with your details, verify your credentials, and gain secure access to the platform.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Step 2: Browse Minerals</h3>
+        <p>
+          Use powerful filters and maps to discover mineral opportunities across regions.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Step 3: Trade & Monitor</h3>
+        <p>
+          Perform trades with transparent data, track performance, and export reports.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Step 4: Insights & Growth</h3>
+        <p>
+          Access market analytics and insights for informed decision-making and business growth.
+        </p>
+      </div>
+    </div>
+
+    <h2>Key Benefits</h2>
+    <ul class="list">
+      <li>✅ Secure and transparent mineral trading ecosystem.</li>
+      <li>✅ Real-time pricing, data, and analytics.</li>
+      <li>✅ Designed for artisanal miners and large-scale traders alike.</li>
+      <li>✅ Supports sustainable, compliant, and cross-border trade.</li>
+    </ul>
+
+    <div class="callout" style="margin-top:2rem;">
+      <h3>Ready to Join?</h3>
+      <p>Start using Sirius MTP today and experience seamless mineral trading.</p>
+      <!-- Link back to MTP -->
+      <a href="mtp.html" class="btn btn-primary">Go to Sirius MTP</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="top">
+      <div>
+        <a class="hero-footer-logo" href="index.html" style="color:#fff;">
+          <img src="blacklogo.jpeg" alt="Sirius Minerals Holdings Logo">
+          Sirius Minerals Holdings
+        </a>
+        <p class="small muted" style="margin-top:.75rem;">
+          Group holding company of Sirius Minerals Holdings (South Africa) and
+          Sirius Minerals & Precious Stones Ltd (Zambia).
+        </p>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul style="list-style:none; padding:0; margin:0;">
+          <li><a href="about.html">About</a></li>
+          <li><a href="mtp.html">Sirius MTP</a></li>
+          <li><a href="miner-guide.html">Miner Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul style="list-style:none; padding:0; margin:0;">
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="sirius.minerals@yahoo.com">sirius.minerals@yahoo.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bottom">
+      © <span id="year"></span> Sirius Minerals Holdings. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile menu toggle script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toggle = document.querySelector('.mobile-toggle');
+    const nav = document.querySelector('nav');
+    toggle.addEventListener('click', function() {
+        nav.classList.toggle('active');
+    });
+});
+</script>
+  <script src="app.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
