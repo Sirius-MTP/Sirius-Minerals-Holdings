@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supplier Update Panel – Sirius MTP</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+body {
+    background: white;
+    color: black;
+}
+h2 { color: var(--gold); }
+.section-box {
+    background: white;
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+    border: 1px solid #eee;
+    overflow-x: auto;
+}
+input, select, textarea {
+    width: 65%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: white;
+    color: black;
+}
+button {
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+.btn-gold { background: var(--gold); color: black; }
+.btn-gold:hover { background: black; color: var(--gold); }
+.btn-green { background: #28a745; color: white; }
+.btn-red { background: #c0392b; color: white; }
+.btn-outline { background: transparent; border: 2px solid black; color: black; }
+.btn-outline:hover { background: black; color: white; }
+.status { padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85rem; display: inline-block; }
+.status.pending { background: grey; color: white; }
+.status.ready { background: #28a745; color: white; }
+.status.fail { background: #c0392b; color: white; }
+.collapsible {
+    background: #444; color: white; border: none; width: 100%;
+    padding: 10px; text-align: left; border-radius: 6px; margin-top: 10px;
+    cursor: pointer;
+}
+.content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+.content.open { max-height: 400px; overflow-y: auto; }
+/* Notification Styles */
+.notification-item {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #f9f9f9; border-radius: 8px; padding: 10px 15px; margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.notification-status { display: flex; align-items: center; gap: 8px; }
+.status-dot { width: 12px; height: 12px; border-radius: 50%; }
+.status-dot.pending { background: grey; }
+.status-dot.ready { background: #28a745; }
+.status-dot.fail { background: #c0392b; }
+.notification-time { font-size: 0.8rem; color: #777; }
+table {
+    width: 100%; border-collapse: collapse; font-size: 0.95rem;
+    background-color: white; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+th {
+    background: var(--gold); color: black; font-weight: 600;
+    padding: 12px 10px; text-align: center; border-bottom: 2px solid #ddd;
+}
+td { padding: 10px; text-align: center; border-bottom: 1px solid #eee; }
+tbody tr:nth-child(even) { background-color: #f9f9f9; }
+tbody tr:hover { background-color: #fff3d6; }
+/* Blinking Badge Animation */
+@keyframes blinkBadge {
+    0% { background: var(--gold); color: black; }
+    50% { background: #ffeb99; color: black; }
+    100% { background: var(--gold); color: black; }
+}
+.badge-blink { animation: blinkBadge 1s infinite; }
+</style>
+</head>
+<body>
+
+<!-- Header/Menu -->
+<header>
+<div class="container inner">
+    <a class="logo" href="index.html">
+        <img src="logo2.jpeg" alt="Sirius Minerals Holdings Logo">
+        Sirius <span style="color:var(--gold)">MTP</span>
+    </a>
+    <button class="mobile-toggle" aria-label="Open menu">☰</button>
+    <nav>
+        <ul>
+            <ul> <li><a href="index.html">Home</a></li>
+        <li><a href="mtp.html">Sirius MTP</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="miner-guide.html">Miner Guide</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html" class="btn btn-primary">Services</a></li>
+        <li><a href="contact.html" class="btn btn-outline">Contact</a></li>
+    </nav>
+</div>
+</header>
+
+<!-- Page Content -->
+<div class="container" style="margin-top: 20px;">
+    <a href="ai_mineral_analysis.html" class="btn-outline">← Back to Mineral Analysis</a>
+
+    <!-- Notifications -->
+    <div class="section-box">
+        <button class="collapsible" id="notif-btn">
+            Submission Notifications 
+            <span id="notif-badge" style="
+                background: var(--gold); color: black; padding: 2px 8px;
+                border-radius: 50%; font-size: 0.8rem; font-weight: bold; display: none;
+            ">0</span>
+        </button>
+        <div class="content" id="notif-panel"></div>
+    </div>
+
+    <!-- Submission Form -->
+    <div class="section-box">
+        <h2>Submit New Sample</h2>
+        <label>Mineral Type:</label>
+        <select id="mineral-type">
+            <option value="Base">Base</option>
+            <option value="Precious">Precious</option>
+            <option value="Semi-Precious">Semi-Precious</option>
+        </select>
+        <label>Mineral Name:</label>
+        <input type="text" id="mineral-name" placeholder="Enter mineral name">
+        <label>Quantity (kg):</label>
+        <input type="number" id="quantity" placeholder="Enter quantity">
+        <label>Sample Origin / Location:</label>
+        <input type="text" id="location" placeholder="e.g., Solwezi, North Western, Zambia">
+        <label>Sample Collection/ Drop-off Location:</label>
+        <select id="drop-off-location">
+            <option value="Kitwe">Kitwe</option>
+            <option value="Kalomo">Kalomo</option>
+            <option value="Mumbwe">Mumbwa</option>
+        </select>
+        <label>Date of Receipt:</label>
+        <input type="date" id="receipt-date">
+        <!-- Terms & Conditions -->
+        <label>
+            <input type="checkbox" id="agree-terms">I agree to the 
+            <a href="terms.html" target="_blank">Terms & Conditions</a> and understand the payment requirements.
+        </label>
+        <button class="btn-gold" id="submit-btn" onclick="addSupplierEntry()" disabled>Submit Entry</button>
+    </div>
+
+    <!-- Acknowledgment Table -->
+    <div class="section-box">
+        <h2>Sample Acknowledgment</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Mineral</th>
+                    <th>Quantity</th>
+                    <th>Origin Location</th>
+                    <th>Drop-off Location</th>
+                    <th>Received Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="sample-table"></tbody>
+        </table>
+    </div>
+
+    <!-- Test Results Table -->
+    <div class="section-box">
+        <h2>Test Results</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Mineral</th>
+                    <th>% CN</th>
+                    <th>Particles</th>
+                    <th>Testing Method</th>
+                </tr>
+            </thead>
+            <tbody id="results-table"></tbody>
+        </table>
+    </div>
+
+    <!-- Further Actions -->
+    <div class="section-box">
+        <h2>Actions</h2>
+        <button class="btn-green" onclick="alert('Connecting to live consultation...')">Live Consultation</button>
+        <button class="btn-gold" onclick="alert('Inquiry Sent')">Further Inquiry</button>
+    </div>
+
+    <!-- Clear Data Section -->
+    <div class="section-box" style="border: 2px solid #c0392b;">
+        <h2 style="color:#c0392b;">⚠ Data Management</h2>
+        <p><strong>Warning:</strong> Clearing all entries will permanently delete your submission records from this device.</p>
+        <button class="btn-red" onclick="clearAllEntries()">Clear All Entries</button>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+<div class="container">
+    <div class="bottom" style="text-align:center;">
+        © <span id="year"></span> Sirius Minerals Holdings. All rights reserved.
+    </div>
+</div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('agree-terms').addEventListener('change', function() {
+    document.getElementById('submit-btn').disabled = !this.checked;
+});
+document.querySelectorAll(".collapsible").forEach(btn => {
+    btn.addEventListener("click", function() {
+        const content = this.nextElementSibling;
+        content.classList.toggle("open");
+        if (this.id === "notif-btn") {
+            newNotifCount = 0;
+            document.getElementById('notif-badge').style.display = 'none';
+            document.getElementById('notif-badge').classList.remove('badge-blink');
+        }
+    });
+});
+const sampleTable = document.getElementById('sample-table');
+const resultsTable = document.getElementById('results-table');
+let newNotifCount = 0;
+function loadNotifications() {
+    const notifPanel = document.getElementById('notif-panel');
+    notifPanel.innerHTML = '';
+    let suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
+    suppliers = suppliers.slice(-10).reverse();
+    suppliers.forEach((s) => {
+        const status = "pending"; 
+        const dotClass = status === "ready" ? "ready" : status === "fail" ? "fail" : "pending";
+        const notifItem = document.createElement('div');
+        notifItem.classList.add('notification-item');
+        notifItem.innerHTML = `
+            <div class="notification-status">
+                <span class="status-dot ${dotClass}"></span>
+                <strong>${s.name}</strong> (${s.quantity}kg, ${s.location}) – Drop-off: ${s.dropOff}
+            </div>
+            <div class="notification-time">${new Date(s.receiptDate).toLocaleDateString()}</div>
+        `;
+        notifPanel.appendChild(notifItem);
+    });
+    const badge = document.getElementById('notif-badge');
+    if (newNotifCount > 0) {
+        badge.innerText = newNotifCount;
+        badge.style.display = 'inline-block';
+        badge.classList.add('badge-blink');
+    } else {
+        badge.style.display = 'none';
+        badge.classList.remove('badge-blink');
+    }
+}
+function loadSupplierEntries() {
+    sampleTable.innerHTML = '';
+    resultsTable.innerHTML = '';
+    const suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
+    suppliers.forEach((s, index) => {
+        sampleTable.innerHTML += `
+            <tr>
+                <td>${s.name}</td>
+                <td>${s.quantity}kg</td>
+                <td>${s.location}</td>
+                <td>${s.dropOff}</td>
+                <td>${s.receiptDate}</td>
+                <td><span class="status pending">Pending</span></td>
+                <td><button class="btn-red" onclick="deleteEntry(${index})">Delete</button></td>
+            </tr>`;
+        resultsTable.innerHTML += `
+            <tr>
+                <td>${s.name}</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>`;
+    });
+    loadNotifications();
+}
+function addSupplierEntry() {
+    const type = document.getElementById('mineral-type').value;
+    const name = document.getElementById('mineral-name').value;
+    const quantity = document.getElementById('quantity').value;
+    const location = document.getElementById('location').value;
+    const dropOff = document.getElementById('drop-off-location').value;
+    const receiptDate = document.getElementById('receipt-date').value;
+    if (!name || !quantity || !location || !dropOff || !receiptDate) {
+        alert("Please fill in all fields.");
+        return;
+    }
+    const suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
+    suppliers.push({ type, name, quantity, location, dropOff, receiptDate });
+    localStorage.setItem('suppliers', JSON.stringify(suppliers));
+    alert("Submission received. Administration will review and contact you with payment terms & next steps.");
+    document.getElementById('mineral-type').value = "Base";
+    document.getElementById('mineral-name').value = "";
+    document.getElementById('quantity').value = "";
+    document.getElementById('location').value = "";
+    document.getElementById('drop-off-location').value = "Kitwe";
+    document.getElementById('receipt-date').value = "";
+    document.getElementById('agree-terms').checked = false;
+    document.getElementById('submit-btn').disabled = true;
+    newNotifCount++;
+    loadSupplierEntries();
+}
+function deleteEntry(index) {
+    const suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
+    suppliers.splice(index, 1);
+    localStorage.setItem('suppliers', JSON.stringify(suppliers));
+    loadSupplierEntries();
+}
+function clearAllEntries() {
+    if (confirm("Are you sure you want to permanently delete all entries?")) {
+        localStorage.removeItem('suppliers');
+        loadSupplierEntries();
+        alert("All entries cleared.");
+    }
+}
+window.onload = loadSupplierEntries;
+</script>
+<script src="app.js"></script>
+</body>
+</html>
