@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sirius MTP – AI Mineral Sample Visual Analysis</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+.analysis-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.analysis-container h2 {
+    color: var(--gold);
+    font-size: 1.8rem;
+}
+.upload-box {
+    border: 2px dashed var(--gold);
+    border-radius: 10px;
+    padding: 2rem;
+    margin: 1rem 0;
+    background: #fafafa;
+}
+.upload-box:hover {
+    background: #fff8e1;
+}
+.upload-box input[type="file"] {
+    display: none;
+}
+.upload-box label {
+    cursor: pointer;
+    color: var(--black);
+    font-weight: 600;
+}
+.error-msg {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.result-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f4f4f4;
+    border-radius: 8px;
+    display: none;
+}
+.action-buttons button {
+    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+.btn-gold {
+    background: var(--gold);
+    color: black;
+}
+.btn-gold:hover {
+    background: black;
+    color: var(--gold);
+}
+.btn-green {
+    background: lightgreen;
+    color: black;
+}
+.btn-green:hover {
+    background: green;
+    color: white;
+}
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+}
+.btn-outline:hover {
+    background: var(--gold);
+    color: black;
+}
+</style>
+</head>
+<body>
+
+<!-- Header/Menu -->
+<header>
+<div class="container inner">
+    <a class="logo" href="index.html">
+        <img src="logo2.jpeg" alt="Sirius Minerals Holdings Logo">
+        Sirius <span style="color:var(--gold)">MTP</span>
+    </a>
+    <button class="mobile-toggle" aria-label="Open menu">☰</button>
+    <nav>
+        <ul>
+            <ul> <li><a href="index.html">Home</a></li>
+        <li><a href="mtp.html">Sirius MTP</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="miner-guide.html">Miner Guide</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html" class="btn btn-primary">Services</a></li>
+        <li><a href="contact.html" class="btn btn-outline">Contact</a></li>
+    </nav>
+</div>
+</header>
+
+<!-- Page Content -->
+<section class="section">
+<div class="container">
+    <div class="analysis-container">
+        <h2><i class="fas fa-microscope"></i> Sirius AI Mineral Sample Visual Analysis</h2>
+        <p>Powered by Sirius MTP to assist ASM miners, traders, and buyers in identifying minerals from visual samples.<br>
+        Upload mineral ores, soils, dust, residues, concentrates, or alloys for analysis.</p>
+
+        <!-- Upload Box -->
+        <div class="upload-box">
+            <input type="file" id="mineralFile" accept="image/*">
+            <label for="mineralFile"><i class="fas fa-upload"></i> Click to Upload Mineral Image</label>
+        </div>
+
+        <div id="errorMessage" class="error-msg"></div>
+
+        <!-- Results -->
+        <div id="analysisResult" class="result-box"></div>
+
+        <!-- Read Aloud -->
+        <div style="margin-top:1rem;">
+            <select id="languageSelector">
+                <option value="en">English</option>
+                <option value="sw">Swahili</option>
+                <option value="fr">French</option>
+                <option value="zu">Zulu</option>
+                <option value="ha">Hausa</option>
+                <option value="yo">Yoruba</option>
+                <option value="ar">Arabic</option>
+            </select>
+            <button class="btn-outline" onclick="translateAndRead()"><i class="fas fa-volume-up"></i> Read Aloud</button>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons" style="margin-top:1rem;">
+            <button class="btn-outline" onclick="regenerateResults()"><i class="fas fa-sync-alt"></i> Regenerate Results</button>
+            <button class="btn-outline" onclick="downloadPDF()"><i class="fas fa-file-download"></i> Download PDF</button>
+            <button class="btn-outline" onclick="newAnalysis()"><i class="fas fa-redo"></i> New Analysis</button>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div style="margin-top:1rem;">
+            <button class="btn-gold" onclick="window.location.href='send_sample.html'"><i class="fas fa-vial"></i> Send Sample for Testing</button>
+            <button class="btn-green" onclick="window.location.href='sell_materials.html'"><i class="fas fa-coins"></i> Sell Material</button>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer>
+<div class="container">
+    <div class="top">
+        <div>
+            <a class="hero-footer-logo" href="index.html" style="color:#fff;">
+                <img src="howtouse.jpeg" alt="Sirius Minerals Holdings Logo">
+                Sirius MTP AI
+            </a>
+            <p class="small muted" style="margin-top:.75rem;">
+                The AI Mineral Visual Analysis quickly identifies minerals from a sample image, giving instant composition insights to guide testing or sales decisions and saving time before full lab verification.
+            </p>
+        </div>
+        <div>
+            <h4>Company</h4>
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="mtp.html">Sirius MTP</a></li>
+                <li><a href="miner-guide.html">Miner Guide</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Get in touch</h4>
+            <ul>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="sirius.minerals@yahoo.com">sirius.minerals@yahoo.com</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="bottom">
+        © <span id="year"></span> Sirius Minerals Holdings. All rights reserved.
+    </div>
+</div>
+</footer>
+
+<!-- JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="app.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const mineralFile = document.getElementById('mineralFile');
+const errorMessage = document.getElementById('errorMessage');
+const resultBox = document.getElementById('analysisResult');
+
+mineralFile.addEventListener('change', () => {
+    errorMessage.textContent = "";
+    resultBox.style.display = "none";
+    const file = mineralFile.files[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+        errorMessage.textContent = "❌ Only image files are allowed.";
+        mineralFile.value = "";
+        return;
+    }
+    simulateMineralCheck(file);
+});
+
+function simulateMineralCheck(file) {
+    const fakeResult = "Sample likely contains gold-bearing ore with visible quartz and iron oxide inclusions.";
+    resultBox.innerHTML = `<strong>Analysis Result:</strong><br>${fakeResult}`;
+    resultBox.style.display = "block";
+}
+
+function regenerateResults() {
+    if (resultBox.style.display === "none") {
+        alert("Please upload an image first.");
+        return;
+    }
+    resultBox.innerHTML += "<br><em>Additional AI interpretation: Possible traces of copper mineralization.</em>";
+}
+
+function newAnalysis() {
+    mineralFile.value = "";
+    resultBox.style.display = "none";
+    errorMessage.textContent = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function downloadPDF() {
+    if (resultBox.style.display === "none") {
+        alert("Please upload and analyze a sample first.");
+        return;
+    }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.text("Sirius MTP – Mineral Analysis Report", 10, 10);
+    doc.text(resultBox.innerText, 10, 20);
+    doc.save("mineral_analysis.pdf");
+}
+
+// Basic offline translations for demonstration
+const translations = {
+    sw: "Sampuli inaonekana kuwa na dhahabu yenye quartz na oksidi ya chuma.",
+    fr: "L'échantillon semble contenir de l'or avec du quartz et des oxydes de fer.",
+    zu: "Isampula ibonakala iqukethe igolide elinezinto ze-quartz ne-oxide yensimbi.",
+    ha: "Misali na iya yiwuwa yana dauke da zinariya mai dauke da quartz da iron oxide.",
+    yo: "Apẹrẹ naa dabi ẹni pe o ni wúrà pẹlu quartz ati iron oxide.",
+    ar: "العينة تحتوي على ذهب مع كوارتز وأكاسيد الحديد."
+};
+
+function translateAndRead() {
+    if (resultBox.style.display === "none") {
+        alert("Please analyze a sample first.");
+        return;
+    }
+    const selectedLang = document.getElementById("languageSelector").value;
+    let textToRead = resultBox.innerText;
+
+    if (translations[selectedLang]) {
+        textToRead = translations[selectedLang];
+    }
+
+    const langMap = {
+        "en": "en-US",
+        "sw": "sw-TZ",
+        "fr": "fr-FR",
+        "zu": "zu-ZA",
+        "ha": "ha-NG",
+        "yo": "yo-NG",
+        "ar": "ar-SA"
+    };
+    const speech = new SpeechSynthesisUtterance(textToRead);
+    speech.lang = langMap[selectedLang];
+    window.speechSynthesis.speak(speech);
+}
+</script>
+</body>
+</html>
