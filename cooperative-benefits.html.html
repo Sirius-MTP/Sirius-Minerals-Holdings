@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Benefits of Cooperative Membership — Sirius Minerals Holdings</title>
+
+  <!-- Use your existing site stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Page-specific tweaks so preview and forms fit neatly */
+    .hero-compact {
+      background: linear-gradient(135deg, #d4af37 0%, #0e0e0e 100%);
+      color: #fff;
+      padding: 2.25rem 1rem;
+      border-radius: 12px;
+      margin-bottom: 1.25rem;
+      /* Removed inner container margin/padding issues by no nested container inside hero */
+    }
+    .hero-compact h1 { 
+      margin: 0 0 .25rem 0; 
+      font-size: clamp(1.3rem, 2.6vw, 1.8rem); 
+    }
+
+    /* Updated grid to be more flexible and avoid distortion */
+    .grid-2 { 
+      display: grid; 
+      grid-template-columns: 1fr minmax(300px, 420px); /* Sidebar min 300px, max 420px */
+      gap: 16px; 
+      align-items: start; /* ensure vertical alignment */
+    }
+    @media (max-width: 980px) { 
+      .grid-2 { grid-template-columns: 1fr; } 
+    }
+
+    /* PDF iframe responsive & prevent distortion */
+    .pdf-preview {
+      width: 100%; 
+      height: 560px; 
+      border-radius: 10px; 
+      border: 1px solid rgba(0,0,0,.06);
+      display: block;
+      max-width: 100%;
+      /* Let height remain fixed for desktop */
+      object-fit: contain; /* helps preserve aspect ratio if supported */
+    }
+    @media (max-width:640px){
+      .pdf-preview {
+        height: 420px;
+      }
+    }
+
+    /* Buttons consistent styling */
+    .download-cta {
+      display:inline-flex; 
+      gap:.6rem; 
+      align-items:center; 
+      background:var(--gold); 
+      color:var(--black); 
+      padding:.6rem .9rem; 
+      border-radius:999px; 
+      text-decoration:none; 
+      font-weight:700; 
+      white-space: nowrap;
+    }
+    .download-cta:hover { opacity:.92; }
+
+    /* Benefit list and items */
+    .benefit-list { 
+      display:grid; 
+      gap:.6rem; 
+      margin-top:.8rem; 
+    }
+    .benefit-item { 
+      background: #fff; 
+      padding:.8rem; 
+      border-radius:8px; 
+      box-shadow:var(--shadow); 
+      display:flex; 
+      gap:.75rem; 
+      align-items:flex-start; 
+    }
+
+    /* Form cards */
+    .form-card { 
+      padding:1rem; 
+      border-radius:10px; 
+      background:white; 
+      box-shadow:var(--shadow);
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Inputs and selects full width for sidebar forms */
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="number"],
+    form select,
+    form textarea,
+    form input[type="file"] {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.4rem 0.6rem;
+      margin-top: 0.2rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    /* Make images and logos scale properly */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Header logo styling consistent */
+    .logo img {
+      height: 36px;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    /* Footer hero logo image fix */
+    .hero-footer-logo img {
+      height: 36px;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+
+    /* Signup notes smaller and spaced */
+    .small-muted { font-size:.9rem; color:var(--grey-700); margin:0; }
+    .signup-note { font-size:.9rem; color:var(--grey-500); margin-top:.6rem; }
+
+    /* Actions buttons flex wrap & spacing */
+    .actions { 
+      display:flex; 
+      gap:.6rem; 
+      flex-wrap:wrap; 
+      align-items:center; 
+      margin-top:.8rem;
+    }
+    .btn-light { 
+      background:#fff; 
+      color:var(--black); 
+      border:1px solid rgba(0,0,0,.06); 
+      padding:.6rem .9rem; 
+      border-radius:8px; 
+      cursor:pointer; 
+    }
+
+    /* Mobile nav toggle fixes */
+    nav#mainNav {
+      transition: max-height 0.3s ease;
+      overflow: hidden;
+      max-height: 0;
+    }
+    nav#mainNav.open {
+      max-height: 400px; /* enough height for all nav items */
+    }
+    @media(min-width: 981px){
+      nav#mainNav {
+        max-height: none !important;
+        overflow: visible !important;
+      }
+      .mobile-toggle {
+        display: none;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Header (matching site structure; mobile toggle included) -->
+  <header>
+    <div class="container inner" style="display:flex; align-items:center; justify-content:space-between; flex-wrap: wrap; gap: 1rem;">
+      <a class="logo" href="index.html" style="display:flex; align-items:center; font-weight:bold; font-size:1.2rem; text-decoration:none; color:inherit;">
+        <img src="logo2.jpeg" alt="Sirius logo" />
+        Sirius <span style="color:var(--gold)">Minerals</span> Holdings
+      </a>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Open menu" style="font-size:1.5rem; background:none; border:none; cursor:pointer;">
+        ☰
+      </button>
+
+      <nav id="mainNav" style="flex-basis:100%; width:100%;">
+        <ul style="list-style:none; display:flex; gap:1rem; padding:0; margin:0; flex-wrap: wrap;">
+          <li><a href="index.html" style="text-decoration:none;">Home</a></li>
+          <li><a href="mtp.html" style="text-decoration:none;">Sirius MTP</a></li>
+          <li><a href="miner-guide.html" class="active" style="text-decoration:none; font-weight:bold;">Miner Guide</a></li>
+          <li><a href="features.html" style="text-decoration:none;">Features</a></li>
+          <li><a href="contact.html" class="btn btn-primary" style="text-decoration:none;">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page content -->
+  <main class="container" style="padding-top:4.50rem; padding-bottom:2.5rem; max-width:1200px; margin:auto;">
+
+    <!-- Hero -->
+    <section class="hero-compact">
+      <h1>Benefits of Cooperative Membership for ASM</h1>
+      <p class="small-muted">Joining a cooperative unlocks funding, shared equipment, access to Sirius MTP services and market access — essential for scaling artisanal & small-scale mining.</p>
+    </section>
+
+    <div class="grid-2">
+
+      <!-- LEFT: Content, PDF preview, benefits -->
+      <section>
+        <div class="card" style="padding: 1rem; margin-bottom: 1rem;">
+          <h2>Why join a Cooperative?</h2>
+          <div class="benefit-list" style="margin-top:.75rem;">
+            <div class="benefit-item">
+              <div style="min-width:40px; font-weight:800; color:var(--gold)">1</div>
+              <div>
+                <strong>Access to finance & grants</strong>
+                <div class="small-muted">Collective applications (CDF, microfinance, impact funds) improve approval prospects and allow larger loans for equipment and working capital.</div>
+              </div>
+            </div>
+
+            <div class="benefit-item">
+              <div style="min-width:40px; font-weight:800; color:var(--gold)">2</div>
+              <div>
+                <strong>Shared PPE & Machinery</strong>
+                <div class="small-muted">Pooling resources makes PPE, crushers, grinders, and testing labs affordable and available to members.</div>
+              </div>
+            </div>
+
+            <div class="benefit-item">
+              <div style="min-width:40px; font-weight:800; color:var(--gold)">3</div>
+              <div>
+                <strong>Market access & better prices</strong>
+                <div class="small-muted">Cooperatives can negotiate bulk sales, ensure compliance, and use Sirius MTP to reach verified buyers.</div>
+              </div>
+            </div>
+
+            <div class="benefit-item">
+              <div style="min-width:40px; font-weight:800; color:var(--gold)">4</div>
+              <div>
+                <strong>Compliance & formalisation support</strong>
+                <div class="small-muted">Assistance with licences, KYC/KYB, environmental best practice and mining safety improves legal standing and revenue opportunities.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CDF PDF preview & download -->
+        <div class="card" style="margin-top:12px; padding:1rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center; flex-wrap:wrap; gap:10px;">
+            <div style="flex:1; min-width:250px;">
+              <h2>Loan Empowerment Application (CDF)</h2>
+              <div class="small-muted">Preview the official CDF loan application — fill, download and submit via your cooperative or Ward Committee.</div>
+            </div>
+            <div>
+              <a id="downloadBtn" href="https://sirius-mtp.github.io/Sirius-Minerals-Holdings/assets/forms/loan-empowerment-application-form.pdf" class="download-cta" download>⤓ Download Form</a>
+            </div>
+          </div>
+
+          <div style="margin-top:12px;">
+            <!-- Embedded PDF preview - replace PDF_URL in script -->
+         <iframe id="pdfPreview" src="https://sirius-mtp.github.io/Sirius-Minerals-Holdings/assets/forms/loan-empowerment-application-form.pdf" class="pdf-preview"></iframe>
+          </div>
+
+          <div class="signup-note">
+            <strong>Tips:</strong> Read the checklist before applying — provide registration docs, TPIN and bank details for faster processing.
+          </div>
+        </div>
+
+        <!-- Additional financial services -->
+        <div class="card" style="margin-top:12px; padding:1rem;">
+          <h2>Other Funding & Financial Tools</h2>
+          <div class="benefit-list">
+            <div class="benefit-item">
+              <div style="min-width:44px"><img src="microfinance.svg" alt="Microfinance icon" style="height:36px;"></div>
+              <div>
+                <strong>Microfinance & Impact Funds</strong>
+                <div class="small-muted">Access small working capital loans and savings products tailored for cooperatives.</div>
+              </div>
+            </div>
+
+            <div class="benefit-item">
+              <div style="min-width:44px"><img src="grant.svg" alt="Grant icon" style="height:36px;"></div>
+              <div>
+                <strong>Government & NGO Grants</strong>
+                <div class="small-muted">Targeted grants for equipment, training and environmental improvement projects.</div>
+              </div>
+            </div>
+
+            <div class="benefit-item">
+              <div style="min-width:44px"><img src="bank.svg" alt="Bank icon" style="height:36px;"></div>
+              <div>
+                <strong>Bank & Mobile Money Partners</strong>
+                <div class="small-muted">Preferred partner programmes for faster payments and credit scoring for cooperatives on the Sirius MTP.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: Signup, PPE, Machinery Requests -->
+      <aside>
+        <div class="form-card card">
+          <h3>Register Interest / Cooperative Signup</h3>
+          <form id="cooperativeSignup" style="margin-top:.6rem">
+            <label class="small-muted" for="signupName">Full Name</label>
+            <input type="text" id="signupName" required placeholder="Your full name" />
+
+            <label class="small-muted" for="signupPhone" style="margin-top:.5rem">Phone / WhatsApp</label>
+            <input type="text" id="signupPhone" required placeholder="+260..." />
+
+            <label class="small-muted" for="signupEmail" style="margin-top:.5rem">Email</label>
+            <input type="email" id="signupEmail" placeholder="you@example.com" />
+
+            <label class="small-muted" for="signupCoop" style="margin-top:.5rem">Cooperative / Group Name</label>
+            <input type="text" id="signupCoop" placeholder="Your cooperative name" />
+
+            <label class="small-muted" for="signupSupport" style="margin-top:.5rem">Type of Support Required</label>
+            <select id="signupSupport" required>
+              <option value="">Choose</option>
+              <option value="Funding">Funding / Grants</option>
+              <option value="PPE">PPE / Safety Equipment</option>
+              <option value="Machinery">Machinery / Processing Equipment</option>
+              <option value="Training">Training / Compliance</option>
+              <option value="Market">Market Access</option>
+            </select>
+
+            <label class="small-muted" for="signupMessage" style="margin-top:.5rem">Message (optional)</label>
+            <textarea id="signupMessage" rows="3" placeholder="Tell us briefly about your needs"></textarea>
+
+            <div class="actions" style="margin-top:.8rem">
+              <button type="button" class="btn btn-primary" id="signupSubmit">Submit Interest</button>
+              <button type="button" class="btn-light" id="signupClear">Clear</button>
+            </div>
+
+            <div id="signupNote" class="signup-note" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <div class="card" style="margin-top:12px;">
+          <h3>PPE & Equipment Requests</h3>
+          <form id="equipmentRequest" style="margin-top:.6rem">
+            <label class="small-muted" for="equipType">Request Type</label>
+            <select id="equipType" required>
+              <option value="">Choose</option>
+              <option value="PPE">PPE (helmets, jackets, gloves)</option>
+              <option value="Crusher">Jaw Crusher</option>
+              <option value="Mill">Ball Mill</option>
+              <option value="Sluice">Sluice / Wash Plant</option>
+              <option value="Assay">Assay / Testing Kits</option>
+            </select>
+
+            <label class="small-muted" for="equipDetails" style="margin-top:.5rem">Quantity / Details</label>
+            <input id="equipDetails" placeholder="e.g. 20 helmets or 1 jaw crusher" />
+
+            <label class="small-muted" for="equipBudget" style="margin-top:.5rem">Estimated Budget (ZMW)</label>
+            <input id="equipBudget" type="number" placeholder="e.g. 50000" />
+
+            <div class="actions" style="margin-top:.6rem">
+              <button type="button" class="btn btn-primary" id="equipSubmit">Request</button>
+              <button type="button" class="btn-light" id="equipClear">Clear</button>
+            </div>
+
+            <div id="equipNote" class="signup-note" aria-live="polite"></div>
+          </form>
+        </div>
+
+        <div class="card" style="margin-top:12px;">
+          <h3>Project Funding Request (quick)</h3>
+          <form id="projectRequest" style="margin-top:.6rem">
+            <label class="small-muted" for="projTitle">Project Title</label>
+            <input id="projTitle" placeholder="e.g. Community processing centre" />
+            <label class="small-muted" for="projDesc" style="margin-top:.5rem">Short Description</label>
+            <textarea id="projDesc" rows="4" placeholder="Explain project and intended impact"></textarea>
+
+            <label class="small-muted" for="projAmount" style="margin-top:.5rem">Requested Amount (ZMW)</label>
+            <input id="projAmount" type="number" />
+
+            <label class="small-muted" for="projFile" style="margin-top:.5rem">Attach supporting file (optional)</label>
+            <input id="projFile" type="file" class="file-input" accept=".pdf,.doc,.docx,image/*" />
+
+            <div class="actions" style="margin-top:.6rem">
+              <button type="button" class="btn btn-primary" id="projSubmit">Submit Request</button>
+              <button type="button" class="btn-light" id="projClear">Clear</button>
+            </div>
+
+            <div id="projNote" class="signup-note" aria-live="polite"></div>
+          </form>
+        </div>
+
+      </aside>
+    </div>
+
+    <!-- Link to other tools -->
+    <div style="margin-top:16px; display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn btn-primary" href="features.html">Go to Features</a>
+      <a class="btn btn-outline" href="mtp.html">Open Sirius MTP</a>
+      <a class="btn btn-outline" href="miner-guide.html">Miner Guide Home</a>
+      <a class="btn btn-dark" href="market-prices.html">Market Prices</a>
+    </div>
+  </main>
+
+  <!-- Footer (same structure as site) -->
+  <footer style="background:#111; color:#eee; padding:1.5rem 0;">
+    <div class="container" style="max-width:1200px; margin:auto; display:flex; flex-wrap:wrap; gap:2rem; justify-content:space-between;">
+      <div style="flex:1; min-width:250px;">
+        <a class="hero-footer-logo" href="index.html" style="color:#fff; display:flex; align-items:center; font-weight:bold; font-size:1.1rem; text-decoration:none;">
+          <img src="blacklogo.jpeg" alt="Sirius Minerals Holdings Logo" />
+          Sirius Minerals Holdings
+        </a>
+        <p class="small muted" style="margin-top:.75rem; color:#bbb;">
+          Group holding company of Sirius Minerals Holdings (South Africa) and
+          Sirius Minerals & Precious Stones Ltd (Zambia).
+        </p>
+      </div>
+      <div style="flex:1; min-width:150px;">
+        <h4>Company</h4>
+        <ul style="list-style:none; padding:0; margin:0; color:#bbb;">
+          <li><a href="about.html" style="color:#bbb; text-decoration:none;">About</a></li>
+          <li><a href="mtp.html" style="color:#bbb; text-decoration:none;">Sirius MTP</a></li>
+          <li><a href="miner-guide.html" style="color:#bbb; text-decoration:none;">Miner Guide</a></li>
+        </ul>
+      </div>
+      <div style="flex:1; min-width:150px;">
+        <h4>Get in touch</h4>
+        <ul style="list-style:none; padding:0; margin:0; color:#bbb;">
+          <li><a href="contact.html" style="color:#bbb; text-decoration:none;">Contact</a></li>
+          <li><a href="sirius.minerals@yahoo.com" style="color:#bbb; text-decoration:none;">sirius.minerals@yahoo.com</a></li>
+        </ul>
+      </div>
+      <div style="flex-basis:100%; text-align:center; margin-top:1rem; color:#777;">
+        © <span id="year"></span> Sirius Minerals Holdings. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page JS: replace PDF_URL with your hosted PDF path -->
+  <script>
+    // <<< REPLACE THIS with the public URL of your PDF hosted on GitHub Pages >>>
+    const PDF_URL = 'https://Sirius-MTP.github.io/Sirius-Minerals-Holdings/loan-empowerment-form.pdf';
+    // NOTE: If your file path has spaces, ensure it is URL-encoded (as above).
+
+    // Set iframe src & download link
+    document.getElementById('pdfPreview').src = PDF_URL;
+    const dl = document.getElementById('downloadBtn');
+    dl.href = PDF_URL;
+
+    // Set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle (same behavior as other pages)
+    document.getElementById('mobileToggle').addEventListener('click', () => {
+      const nav = document.getElementById('mainNav');
+      nav.classList.toggle('open');
+    });
+
+    /* --- Signup form logic (stores interest locally and gives confirmation) --- */
+    function saveToLocal(key, obj){
+      const arr = JSON.parse(localStorage.getItem(key) || '[]');
+      arr.unshift(obj);
+      localStorage.setItem(key, JSON.stringify(arr));
+    }
+
+    // Signup
+    document.getElementById('signupSubmit').addEventListener('click', () => {
+      const name = document.getElementById('signupName').value.trim();
+      const phone = document.getElementById('signupPhone').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const coop = document.getElementById('signupCoop').value.trim();
+      const support = document.getElementById('signupSupport').value;
+      const message = document.getElementById('signupMessage').value.trim();
+
+      if(!name || !phone || !support){ 
+        document.getElementById('signupNote').textContent = 'Please provide your name, phone and select support type.'; 
+        return; 
+      }
+
+      const payload = { name, phone, email, coop, support, message, ts: new Date().toISOString() };
+      saveToLocal('sirius_signups', payload);
+      document.getElementById('signupNote').textContent = 'Thanks — your interest has been recorded. A Sirius rep will contact you.';
+      // clear main fields (keep email optional)
+      document.getElementById('signupName').value=''; 
+      document.getElementById('signupPhone').value=''; 
+      document.getElementById('signupCoop').value=''; 
+      document.getElementById('signupSupport').value=''; 
+      document.getElementById('signupMessage').value='';
+    });
+    document.getElementById('signupClear').addEventListener('click', ()=>{
+      document.getElementById('cooperativeSignup').reset(); 
+      document.getElementById('signupNote').textContent='';
+    });
+
+    // Equipment request
+    document.getElementById('equipSubmit').addEventListener('click', () => {
+      const type = document.getElementById('equipType').value;
+      const details = document.getElementById('equipDetails').value.trim();
+      const budget = document.getElementById('equipBudget').value;
+      if(!type || !details){ 
+        document.getElementById('equipNote').textContent = 'Please select a request type and provide details.'; 
+        return; 
+      }
+      saveToLocal('sirius_equip_requests', { type, details, budget, ts: new Date().toISOString() });
+      document.getElementById('equipNote').textContent = 'Request saved. A representative will follow up.';
+      document.getElementById('equipmentRequest').reset();
+    });
+    document.getElementById('equipClear').addEventListener('click', ()=>{
+      document.getElementById('equipmentRequest').reset(); 
+      document.getElementById('equipNote').textContent='';
+    });
+
+    // Project requests (supports a client-side upload if desired)
+    document.getElementById('projSubmit').addEventListener('click', async () => {
+      const title = document.getElementById('projTitle').value.trim();
+      const desc = document.getElementById('projDesc').value.trim();
+      const amount = document.getElementById('projAmount').value;
+      const fileInput = document.getElementById('projFile');
+      if(!title || !desc || !amount){ 
+        document.getElementById('projNote').textContent='Please complete title, description and amount.'; 
+        return; 
+      }
+
+      // if file provided, read as base64 (optional) — careful with large files
+      let fileData = null;
+      if(fileInput.files && fileInput.files[0]){
+        const f = fileInput.files[0];
+        // limit file size to 5MB client-side
+        if(f.size > 5*1024*1024){ 
+          document.getElementById('projNote').textContent='File too large (max 5MB).'; 
+          return; 
+        }
+        fileData = await new Promise((res,rej) => {
+          const r = new FileReader();
+          r.onload = () => res({ name:f.name, content:r.result });
+          r.onerror = rej;
+          r.readAsDataURL(f);
+        });
+      }
+
+      saveToLocal('sirius_project_requests', { title, desc, amount, file: fileData, ts: new Date().toISOString() });
+      document.getElementById('projNote').textContent = 'Project request saved locally. A Sirius representative will contact you for next steps.';
+      document.getElementById('projectRequest').reset();
+    });
+    document.getElementById('projClear').addEventListener('click', ()=>{
+      document.getElementById('projectRequest').reset(); 
+      document.getElementById('projNote').textContent='';
+    });
+
+    // Basic UX: when users click the embedded preview, try to open in new tab for better view on mobile
+    document.getElementById('pdfPreview').addEventListener('click', () => {
+      window.open(PDF_URL, '_blank');
+    });
+
+    // Provide a simple "admin notification" badge when new submissions exist (example)
+    function updateAdminBadge(){
+      const s = JSON.parse(localStorage.getItem('sirius_signups') || '[]').length;
+      if(s>0) console.info('Signups stored locally:', s);
+    }
+    updateAdminBadge();
+
+    // Accessibility: ensure download link has proper attributes
+    dl.setAttribute('aria-label','Download CDF loan application form');
+  </script>
+</body>
+</html>
