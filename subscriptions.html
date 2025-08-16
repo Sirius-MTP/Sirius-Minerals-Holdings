@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Subscriptions — Sirius Minerals Holdings</title>
+  <meta name="description" content="Subscribe to Sirius MTP tiers for access to marketplace, data room, live streams and export facilitation." />
+  <link rel="icon" href="logo2.jpeg" />
+  <!-- Use your global stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* --- Page-specific cosmetics (uses your CSS variables) --- */
+    .pricing-hero {
+      min-height: auto;
+      padding: 3.25rem 0 2rem;
+      background: var(--gradient-gold-black);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .pricing-hero .content { max-width: 900px; }
+    .plan-wrap { display:grid; gap:1.25rem; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+    .plan {
+      background:#fff; border:1px solid rgba(0,0,0,.06); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding:1.25rem; display:flex; flex-direction:column; justify-content:space-between;
+    }
+    .plan .head { margin-bottom:.75rem; }
+    .plan .title { font-weight:800; font-size:1.15rem; }
+    .plan .subtitle { color:var(--grey-700); font-size:.95rem; }
+    .badge-market { display:inline-flex; gap:.35rem; align-items:center; font-size:.775rem; font-weight:700;
+      padding:.25rem .55rem; border-radius:999px; background: rgba(15,76,129,.08); color: var(--blue);
+    }
+    .badge-intl { background: rgba(31,143,78,.12); color: var(--green); }
+    .price {
+      display:flex; align-items:baseline; gap:.35rem; margin: .35rem 0 .25rem; font-weight:900;
+    }
+    .price .currency { font-size:1.15rem; opacity:.85; }
+    .price .amount { font-size:2rem; line-height:1; }
+    .price .per { font-size:.95rem; color:var(--grey-700); }
+    .strike { text-decoration:line-through; color: var(--grey-500); font-weight:600; font-size:.95rem; }
+    .discount-tag {
+      display:inline-flex; align-items:center; gap:.3rem; font-size:.8rem; font-weight:800; color:#fff;
+      background: linear-gradient(135deg, #d4af37, #9f7d17); padding:.2rem .55rem; border-radius:999px;
+    }
+    .features { margin:.5rem 0 1rem; }
+    .features li { margin:.35rem 0; }
+    .pay-grid { display:grid; gap:.5rem; grid-template-columns: 1fr; }
+    .btn-pay { width:100%; justify-content:center; }
+    .btn-mm { background: var(--green); color:#fff; }
+    .btn-card { background: var(--black); color:#fff; }
+    .btn-paypal { background:#ffd140; color:#111; }
+    .toggle { display:flex; align-items:center; gap:.75rem; margin:1rem 0 1.25rem; }
+    .toggle .switch {
+      position:relative; width:56px; height:30px; background:#ddd; border-radius:999px; cursor:pointer;
+    }
+    .toggle .switch::after {
+      content:""; position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:999px; background:#fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,.2); transition: transform .2s ease;
+    }
+    .toggle input:checked + .switch { background: var(--gold); }
+    .toggle input:checked + .switch::after { transform: translateX(26px); }
+    .fine { color:var(--grey-500); font-size:.85rem; }
+    .today { display:flex; align-items:center; gap:.5rem; margin-top:.25rem; }
+    .today .icon { font-size:1rem; }
+    .section-note { margin:.35rem 0 1rem; color:var(--grey-700); }
+    .section-divider { border:0; border-top:1px solid rgba(0,0,0,.08); margin:1.5rem 0; }
+
+    /* Modal option (if you prefer this as popup) */
+    .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,.5); display:none; align-items:center; justify-content:center; z-index:9999; }
+    .modal-backdrop.open { display:flex; }
+    .modal-card { background:#fff; width:min(1040px, 98vw); max-height:92vh; overflow:auto; border-radius:16px; box-shadow: var(--shadow); padding:1rem; }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; padding:.5rem .5rem 1rem .5rem; border-bottom:1px solid rgba(0,0,0,.06); }
+    .close-x { background:none; border:none; font-size:1.5rem; cursor:pointer; }
+
+    .pay-logos { display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; opacity:.85; }
+    .pay-logos img { height:18px; width:auto; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container inner">
+      <a class="logo" href="index.html">
+        <img src="logo2.jpeg" alt="Sirius Minerals Holdings Logo">
+        Sirius <span style="color:var(--gold)">Minerals</span> Holdings
+      </a>
+
+      <button class="mobile-toggle" aria-label="Open menu">☰</button>
+
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="mtp.html">Sirius MTP</a></li>
+          <li><a href="miner-guide.html">Miner Guide</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="contact.html" class="btn btn-primary">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="pricing-hero">
+    <div class="container">
+      <div class="content fade-in-up">
+        <span class="tag">Subscriptions</span>
+        <h1>Access Sirius MTP — Market, Data Room & Export Facilitation</h1>
+        <p class="big">
+          Choose a plan that matches your operations. Pay locally via Mobile Money & Cards, or internationally via PayPal/Cards. Cancel anytime.
+        </p>
+        <div class="toggle" role="group" aria-label="Billing period toggle">
+          <div class="badge">Billing:</div>
+          <label class="flex-center" style="gap:.5rem;">
+            <span>Monthly</span>
+            <input id="billToggle" type="checkbox" aria-label="Toggle yearly billing" hidden />
+            <span class="switch" aria-hidden="true"></span>
+            <span>Yearly</span>
+          </label>
+          <span class="discount-tag">15% off today</span>
+        </div>
+        <div class="pay-logos">
+          <span class="small">We accept</span>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="Mastercard">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal">
+          <img src="Mtn.png" alt="MTN">
+          <img src="Airtel.png" alt="Airtel">
+          <img src="Zamtel.png" alt="Stripe">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans -->
+  <section class="section" style="padding-top:2rem;">
+    <div class="container">
+      <!-- Market context -->
+      <div class="grid grid-2 section-tight">
+        <div class="card">
+          <div class="title">Market A — Domestic</div>
+          <p class="muted">
+            Designed for Zambia-based traders and buyers. Pay in ZMW via Mobile Money or card. Access marketplace, bidding, and local onsite purchasing.
+          </p>
+        </div>
+        <div class="card">
+          <div class="title">Market B — International</div>
+          <p class="muted">
+            For international buyers paying in USD. Includes live video tours, export facilitation support and access to the Mineral Data Room.
+          </p>
+        </div>
+      </div>
+
+      <hr class="section-divider"/>
+
+      <div class="plan-wrap">
+        <!-- Tier 1 -->
+        <div class="plan" id="tier1">
+          <div>
+            <div class="head">
+              <span class="badge-market">A • Domestic</span>
+              <div class="title">Tier 1 — Local Traders</div>
+              <div class="subtitle">Marketplace access for traders</div>
+            </div>
+
+            <div class="price">
+              <span class="currency">ZMW</span>
+              <span class="amount" data-month="99.99" data-year="1199.88" id="t1Amount">99.99</span>
+              <span class="per" id="t1Per">/mo</span>
+            </div>
+            <div class="today">
+              <span class="strike" id="t1YearStrike" style="display:none;">ZMW 1199.88/yr</span>
+              <span class="discount-tag" id="t1YearDeal" style="display:none;">15% OFF Today</span>
+            </div>
+
+            <ul class="features">
+              <li>All free Sirius MTP features</li>
+              <li>Live view of marketplace minerals</li>
+              <li>Bids offering</li>
+              <li>Digital purchases only</li>
+              <li>Supply onboarding (sell minerals)</li>
+            </ul>
+          </div>
+
+          <div class="pay-grid">
+            <button class="btn btn-pay btn-mm" data-tier="Tier 1" data-currency="ZMW" data-amount="99.99" data-amount-year="1199.88" onclick="payFlutterwave(this)">Pay with Mobile Money</button>
+            <button class="btn btn-pay btn-card" data-tier="Tier 1" data-currency="ZMW" data-amount="99.99" data-amount-year="1199.88" onclick="payFlutterwave(this)">Pay with Card (ZMW)</button>
+            <a class="fine" href="terms.html">T&Cs</a>
+          </div>
+        </div>
+
+        <!-- Tier 2 -->
+        <div class="plan" id="tier2">
+          <div>
+            <div class="head">
+              <span class="badge-market">A • Domestic</span>
+              <div class="title">Tier 2 — Local Buyers</div>
+              <div class="subtitle">Enhanced access incl. onsite & Data Room</div>
+            </div>
+
+            <div class="price">
+              <span class="currency">ZMW</span>
+              <span class="amount" data-month="700" data-year="8400" id="t2Amount">700</span>
+              <span class="per" id="t2Per">/mo</span>
+            </div>
+            <div class="today">
+              <span class="strike" id="t2YearStrike" style="display:none;">ZMW 8400/yr</span>
+              <span class="discount-tag" id="t2YearDeal" style="display:none;">15% OFF Today</span>
+            </div>
+
+            <ul class="features">
+              <li>All free Sirius MTP features</li>
+              <li>Live view of marketplace minerals</li>
+              <li>Bids offering</li>
+              <li>Digital purchases + live inventory streaming <span class="fine">(see T&Cs)</span></li>
+              <li>Onsite purchases access</li>
+              <li>Supply onboarding (sell minerals) <span class="fine">(see T&Cs)</span></li>
+              <li>Mineral Data Room access (status, test results, availability)</li>
+            </ul>
+          </div>
+
+          <div class="pay-grid">
+            <button class="btn btn-pay btn-mm" data-tier="Tier 2" data-currency="ZMW" data-amount="700" data-amount-year="8400" onclick="payFlutterwave(this)">Pay with Mobile Money</button>
+            <button class="btn btn-pay btn-card" data-tier="Tier 2" data-currency="ZMW" data-amount="700" data-amount-year="8400" onclick="payFlutterwave(this)">Pay with Card (ZMW)</button>
+            <a class="fine" href="terms.html">T&Cs</a>
+          </div>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="plan" id="tier3">
+          <div>
+            <div class="head">
+              <span class="badge-market badge-intl">B • International</span>
+              <div class="title">Tier 3 — International Buyers</div>
+              <div class="subtitle">USD plan incl. export facilitation</div>
+            </div>
+
+            <div class="price">
+              <span class="currency">USD</span>
+              <span class="amount" data-month="99.99" data-year="1199.88" id="t3Amount">99.99</span>
+              <span class="per" id="t3Per">/mo</span>
+            </div>
+            <div class="today">
+              <span class="strike" id="t3YearStrike" style="display:none;">USD 1199.88/yr</span>
+              <span class="discount-tag" id="t3YearDeal" style="display:none;">15% OFF Today</span>
+            </div>
+
+            <ul class="features">
+              <li>All free Sirius MTP features</li>
+              <li>Live view of marketplace minerals</li>
+              <li>Bids offering</li>
+              <li>Digital purchases + live inventory streaming <span class="fine">(see T&Cs)</span></li>
+              <li>Direct engagement: live video tours (lab, processing & showroom)</li>
+              <li>Onsite purchases access</li>
+              <li>Export facilitation <span class="fine">(see T&Cs)</span></li>
+              <li>Mineral Data Room access (status, test results, bulk availability)</li>
+            </ul>
+          </div>
+
+          <div class="pay-grid">
+            <!-- PayPal -->
+            <div id="paypal-container" aria-label="PayPal button area"></div>
+            <!-- Stripe/Card placeholder (handled by your backend or Stripe Checkout) -->
+            <button class="btn btn-pay btn-card" data-tier="Tier 3" data-currency="USD" data-amount="99.99" data-amount-year="1199.88" onclick="payStripePlaceholder(this)">Pay with Card (USD)</button>
+            <a class="fine" href="terms.html">T&Cs</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="section-note">
+        After payment, your account is automatically upgraded. You’ll receive receipts via email/SMS (configure in your profile). You can cancel anytime.
+      </p>
+    </div>
+  </section>
+
+  <!-- Optional: modal version trigger (if embedding as a popup) -->
+  <div class="modal-backdrop" id="subscribeModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div class="h3">Subscribe to Sirius MTP</div>
+        <button class="close-x" onclick="document.getElementById('subscribeModal').classList.remove('open')" aria-label="Close">×</button>
+      </div>
+      <div style="padding:1rem;">
+        <!-- You can move the .plan-wrap markup here if you prefer a modal -->
+        <p>Embed the plans here if you want this as a modal instead of a page.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="top">
+        <div>
+          <a class="logo" href="index.html" style="color:#fff;">
+            <img src="assets/img/siriu.png" alt="Sirius Minerals Holdings Logo">
+            Sirius Minerals Holdings
+          </a>
+          <p class="small muted" style="margin-top:.75rem;">
+            Group holding company of Sirius Minerals Holdings (South Africa) and
+            Sirius Minerals & Precious Stones Ltd (Zambia).
+          </p>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul style="list-style:none; padding:0; margin:0;">
+            <li><a href="about.html">About</a></li>
+            <li><a href="mtp.html">Sirius MTP</a></li>
+            <li><a href="miner-guide.html">Miner Guide</a></li>
+            <li><a href="services.html">Services</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Get in touch</h4>
+          <ul style="list-style:none; padding:0; margin:0;">
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="mailto:sirius.minerals@yahoo.com">sirius.minerals@yahoo.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom">
+        © <span id="year"></span> Sirius Minerals Holdings. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS: Mobile menu + active link highlight (same pattern as your site) -->
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav
+    const toggle = document.querySelector('.mobile-toggle');
+    const nav = document.querySelector('nav');
+    if (toggle && nav) toggle.addEventListener('click', ()=> nav.classList.toggle('open'));
+
+    // Active nav
+    const path = location.pathname.split('/').pop();
+    document.querySelectorAll('nav a').forEach(a=>{
+      const href = a.getAttribute('href');
+      if (href === path || (href === 'index.html' && path === '')) a.classList.add('active');
+    });
+  </script>
+
+  <!-- Billing toggle + dynamic prices -->
+  <script>
+    const billToggle = document.getElementById('billToggle');
+    const fmt = (n) => (Math.round(n * 100) / 100).toFixed(2);
+
+    function setPrices() {
+      const yearly = billToggle.checked;
+
+      // T1
+      const t1A = document.getElementById('t1Amount');
+      const t1Per = document.getElementById('t1Per');
+      const t1Month = parseFloat(t1A.dataset.month);
+      const t1Year = parseFloat(t1A.dataset.year); // 99.99*12 = 1199.88
+      const t1Disc = +(t1Year * 0.85).toFixed(2);  // 15% off today
+      if (yearly) {
+        t1A.textContent = fmt(t1Disc);
+        t1Per.textContent = '/yr';
+        document.getElementById('t1YearStrike').style.display = 'inline';
+        document.getElementById('t1YearDeal').style.display = 'inline-flex';
+      } else {
+        t1A.textContent = fmt(t1Month);
+        t1Per.textContent = '/mo';
+        document.getElementById('t1YearStrike').style.display = 'none';
+        document.getElementById('t1YearDeal').style.display = 'none';
+      }
+
+      // T2
+      const t2A = document.getElementById('t2Amount');
+      const t2Per = document.getElementById('t2Per');
+      const t2Month = parseFloat(t2A.dataset.month);
+      const t2Year = parseFloat(t2A.dataset.year); // 700*12 = 8400
+      const t2Disc = +(t2Year * 0.85).toFixed(2);
+      if (yearly) {
+        t2A.textContent = fmt(t2Disc);
+        t2Per.textContent = '/yr';
+        document.getElementById('t2YearStrike').style.display = 'inline';
+        document.getElementById('t2YearDeal').style.display = 'inline-flex';
+      } else {
+        t2A.textContent = fmt(t2Month);
+        t2Per.textContent = '/mo';
+        document.getElementById('t2YearStrike').style.display = 'none';
+        document.getElementById('t2YearDeal').style.display = 'none';
+      }
+
+      // T3
+      const t3A = document.getElementById('t3Amount');
+      const t3Per = document.getElementById('t3Per');
+      const t3Month = parseFloat(t3A.dataset.month);
+      const t3Year = parseFloat(t3A.dataset.year); // 99.99*12 = 1199.88
+      const t3Disc = +(t3Year * 0.85).toFixed(2);
+      if (yearly) {
+        t3A.textContent = fmt(t3Disc);
+        t3Per.textContent = '/yr';
+        document.getElementById('t3YearStrike').style.display = 'inline';
+        document.getElementById('t3YearDeal').style.display = 'inline-flex';
+      } else {
+        t3A.textContent = fmt(t3Month);
+        t3Per.textContent = '/mo';
+        document.getElementById('t3YearStrike').style.display = 'none';
+        document.getElementById('t3YearDeal').style.display = 'none';
+      }
+    }
+    billToggle.addEventListener('change', setPrices);
+    setPrices();
+  </script>
+
+  <!-- ============== PAYMENT INTEGRATIONS (Front-end) ============== -->
+  <!-- Flutterwave Inline (Mobile Money + ZMW Cards) -->
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+  <script>
+    // TODO: replace with your real keys and endpoints
+    const FLW_PUBLIC_KEY = "FLWPUBK_TEST-REPLACE_ME";
+    const BACKEND_VERIFY_URL = "/api/payments/flutterwave/verify"; // your server endpoint
+    const USER_EMAIL = "user@example.com"; // dynamically inject from session
+    const USER_NAME  = "Sirius User";      // dynamically inject from session
+    const USER_PHONE = "+2607XXXXXXX";     // dynamically inject from session
+    const USER_ID    = "USER123";          // dynamically inject from session
+
+    function currentAmount(btn){
+      const yearly = document.getElementById('billToggle').checked;
+      const month = parseFloat(btn.dataset.amount);
+      const year  = parseFloat(btn.dataset.amountYear);
+      return yearly ? +(year * 0.85).toFixed(2) : month; // apply today discount on yearly
+    }
+
+    function currentPlanLabel(btn){
+      const yearly = document.getElementById('billToggle').checked;
+      return `${btn.dataset.tier} — ${yearly ? 'Yearly (15% off)' : 'Monthly'}`;
+    }
+
+    function payFlutterwave(btn){
+      const amount = currentAmount(btn);
+      const currency = btn.dataset.currency; // "ZMW"
+      const txRef = `SMH-${Date.now()}-${Math.floor(Math.random()*9999)}`;
+
+      FlutterwaveCheckout({
+        public_key: FLW_PUBLIC_KEY,
+        tx_ref: txRef,
+        amount: amount,
+        currency: currency,
+        payment_options: "card, mobilemoneyzambia",
+        customer: {
+          email: USER_EMAIL,
+          phonenumber: USER_PHONE,
+          name: USER_NAME,
+        },
+        customizations: {
+          title: "Sirius MTP Subscription",
+          description: currentPlanLabel(btn),
+          logo: "https://sirius-mtp.github.io/Sirius-Minerals-Holdings/assets/img/logo2.jpeg",
+        },
+        callback: function (data) {
+          // Send data to backend for verification & subscription activation
+          fetch(BACKEND_VERIFY_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              userId: USER_ID,
+              txRef: data.tx_ref,
+              flwRef: data.flw_ref,
+              status: data.status,
+              tier: btn.dataset.tier,
+              billing: document.getElementById('billToggle').checked ? 'yearly' : 'monthly',
+              currency,
+              amount
+            })
+          }).then(()=> {
+            alert("Payment received! Your subscription will update shortly.");
+          }).catch(()=> {
+            alert("Payment received. Verification pending.");
+          });
+        },
+        onclose: function() {
+          // Optional: handle when user closes
+        }
+      });
+    }
+  </script>
+
+  <!-- PayPal Buttons (USD for Tier 3) -->
+  <!-- TODO: replace "test" client-id with your real PayPal client ID -->
+  <script src="https://www.paypal.com/sdk/js?client-id=TEST_REPLACE_ME&currency=USD"></script>
+  <script>
+    // Your backend endpoint to capture/verify
+    const PAYPAL_VERIFY_URL = "/api/payments/paypal/capture";
+    const T3_BTN_META = { tier: "Tier 3", currency: "USD", month: 99.99, year: 1199.88 };
+
+    function t3Amount(){
+      const yearly = document.getElementById('billToggle').checked;
+      const amount = yearly ? (T3_BTN_META.year * 0.85) : T3_BTN_META.month;
+      return (Math.round(amount * 100) / 100).toFixed(2);
+    }
+
+    if (window.paypal) {
+      paypal.Buttons({
+        style: { layout: 'vertical', shape: 'pill', label: 'paypal' },
+        createOrder: function(data, actions) {
+          const amt = t3Amount();
+          return actions.order.create({
+            purchase_units: [{
+              amount: { value: amt },
+              description: `Sirius MTP Subscription — ${document.getElementById('billToggle').checked ? 'Yearly (15% off)' : 'Monthly'}`
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+            // Send to backend for verification + subscription activation
+            fetch(PAYPAL_VERIFY_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                userId: USER_ID,
+                orderId: orderData.id,
+                status: orderData.status,
+                tier: T3_BTN_META.tier,
+                billing: document.getElementById('billToggle').checked ? 'yearly' : 'monthly',
+                currency: T3_BTN_META.currency,
+                amount: t3Amount()
+              })
+            }).then(()=> {
+              alert("Payment received! Your subscription will update shortly.");
+            }).catch(()=> {
+              alert("Payment received. Verification pending.");
+            });
+          });
+        }
+      }).render('#paypal-container');
+    }
+
+    // Stripe placeholder (you will replace with Stripe Checkout or Payment Element)
+    function payStripePlaceholder(btn){
+      alert("Redirecting to secure card checkout (Stripe)…\n\nTODO: wire to your backend to create a Stripe Checkout Session, then redirect.");
+      // Example:
+      // fetch('/api/payments/stripe/checkout', {method:'POST', body: JSON.stringify({...})})
+      //   .then(res=>res.json()).then(({checkoutUrl}) => location.href = checkoutUrl);
+    }
+  </script>
+</body>
+</html>
