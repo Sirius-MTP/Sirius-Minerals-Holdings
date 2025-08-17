@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sirius Minerals Holdings - Live Consultations</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* =======================
+   Sirius Design System
+   (From mtp.html reference)
+   ======================= */
+:root {
+  --gold: #d4af37;
+  --gold-dark: #9f7d17;
+  --black: #0e0e0e;
+  --white: #ffffff;
+  --grey-100: #f5f7fa;
+  --grey-300: #d8dee6;
+  --grey-500: #8a919a;
+  --grey-700: #3e4650;
+  --blue: #0f4c81;
+  --green: #1f8f4e;
+  --gradient-gold-black: linear-gradient(135deg, #d4af37 0%, #0e0e0e 100%);
+  --max-width: 1300px;
+  --radius: 12px;
+  --shadow: 0 10px 30px rgba(0,0,0,.08);
+  --transition: all .25s ease;
+  --header-height: 78px;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--black);
+  background: var(--white);
+  line-height: 1.6;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+/* Header */
+header {
+  background: var(--white);
+  border-bottom: 1px solid rgba(0,0,0,.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header .inner {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+header .logo img { height: 50px; }
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.25rem;
+}
+nav a {
+  color: var(--black);
+  font-weight: 600;
+  text-decoration: none;
+}
+nav a:hover { color: var(--gold); }
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+}
+@media (max-width: 900px) {
+  nav {
+    position: absolute;
+    top: var(--header-height);
+    right: 0;
+    background: var(--white);
+    flex-direction: column;
+    width: 100%;
+    transform: translateY(-120%);
+    transition: transform .3s ease;
+  }
+  nav.open { transform: translateY(0); }
+  nav ul { flex-direction: column; padding: 1rem; }
+  .mobile-toggle { display: block; }
+}
+
+/* Hero */
+.hero {
+  background: var(--gradient-gold-black);
+  color: var(--white);
+  padding: 4rem 0;
+  text-align: center;
+}
+.hero h1 { font-size: 2.5rem; }
+.hero p { max-width: 700px; margin: .5rem auto 0; }
+
+/* Cards */
+.card {
+  background: var(--white);
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.card:hover, .card.selected {
+  border-color: var(--gold);
+  box-shadow: var(--shadow);
+}
+
+/* Form */
+form {
+  max-width: 600px;
+  margin: 2rem auto 0;
+  display: grid;
+  gap: 1rem;
+}
+input, select, textarea {
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  padding: .8rem 1rem;
+  font: inherit;
+}
+textarea { min-height: 120px; }
+button {
+  background: var(--gold);
+  border: none;
+  border-radius: var(--radius);
+  padding: .9rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+button:hover { background: var(--gold-dark); }
+
+/* Appointments */
+.appointment-card {
+  background: var(--white);
+  border: 1px solid var(--grey-300);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.status-badge {
+  padding: .25rem .6rem;
+  border-radius: 999px;
+  font-size: .8rem;
+}
+.status-pending { background: rgba(255,165,0,.1); color: orange; }
+
+/* Footer */
+footer {
+  background: var(--black);
+  color: var(--white);
+  padding: 3rem 0 1.5rem;
+}
+footer .bottom {
+  text-align: center;
+  font-size: .85rem;
+  color: var(--grey-500);
+  border-top: 1px solid rgba(255,255,255,.1);
+  padding-top: 1rem;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container inner">
+    <div class="logo">
+      <img src="logo2.jpeg" alt="Sirius Logo">
+      <strong>Sirius Minerals Holdings</strong>
+    </div>
+    <button class="mobile-toggle" id="navToggle">☰</button>
+    <nav id="mainNav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">MTP</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="#">Consultations</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1>Live Consultations</h1>
+    <p>Book expert sessions with our team for mining compliance, processing, market insights, and lab result explanations.</p>
+  </div>
+</section>
+
+<!-- CONSULTATION CATEGORIES -->
+<section class="section">
+  <div class="container">
+    <h2>Select Consultation Category</h2>
+    <div class="grid grid-3" id="categoryGrid">
+      <div class="card" data-category="Mining Compliance & Licensing">Mining Compliance & Licensing</div>
+      <div class="card" data-category="Gold & Mineral Processing">Gold & Mineral Processing</div>
+      <div class="card" data-category="Market Pricing & Sales">Market Pricing & Sales</div>
+      <div class="card" data-category="Safety & Environment">Safety & Environment</div>
+      <div class="card" data-category="Business & Trade Advisory">Business & Trade Advisory</div>
+      <div class="card" data-category="Lab Consultations">Lab Consultations</div>
+    </div>
+
+    <!-- BOOKING FORM -->
+    <form id="bookingForm">
+      <input type="text" name="fullName" placeholder="Full Name" required>
+      <input type="email" name="emailAddress" placeholder="Email Address" required>
+      <select name="consultationMode" required>
+        <option value="">Preferred Consultation Mode</option>
+        <option>Video Call</option>
+        <option>Audio Call</option>
+        <option>Chat</option>
+        <option>In-Person</option>
+      </select>
+      <select name="collectionPoint">
+        <option value="">Select Collection Point</option>
+        <option>Kitwe</option>
+        <option>Kalomo</option>
+        <option>Mumbwa</option>
+      </select>
+      <input type="file" name="labReport" accept=".pdf,image/*">
+      <textarea name="additionalNotes" placeholder="Additional Notes / Questions"></textarea>
+      <button type="submit">Book Consultation</button>
+    </form>
+  </div>
+</section>
+
+<!-- APPOINTMENTS -->
+<section class="section">
+  <div class="container">
+    <h2>Upcoming Appointments</h2>
+    <div id="upcomingAppointments">No upcoming appointments.</div>
+
+    <h2 style="margin-top:2rem;">Past Consultations</h2>
+    <div id="pastConsultations">No past consultations.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="bottom">
+      © 2025 Sirius Minerals Holdings. All Rights Reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle
+const navToggle = document.getElementById('navToggle');
+const mainNav = document.getElementById('mainNav');
+navToggle.addEventListener('click', () => {
+  mainNav.classList.toggle('open');
+});
+
+// Category selection
+let selectedCategory = '';
+document.querySelectorAll('#categoryGrid .card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('#categoryGrid .card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedCategory = card.dataset.category;
+  });
+});
+
+// Booking form logic
+const bookingForm = document.getElementById('bookingForm');
+const upcomingAppointments = document.getElementById('upcomingAppointments');
+
+let appointments = [];
+
+bookingForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const data = new FormData(bookingForm);
+  const appointment = {
+    name: data.get('fullName'),
+    email: data.get('emailAddress'),
+    category: selectedCategory || 'General',
+    mode: data.get('consultationMode'),
+    point: data.get('collectionPoint'),
+    status: 'Pending Admin Approval'
+  };
+  appointments.push(appointment);
+  renderAppointments();
+  bookingForm.reset();
+});
+
+function renderAppointments() {
+  if (!appointments.length) {
+    upcomingAppointments.textContent = 'No upcoming appointments.';
+    return;
+  }
+  upcomingAppointments.innerHTML = '';
+  appointments.forEach(app => {
+    const div = document.createElement('div');
+    div.className = 'appointment-card';
+    div.innerHTML = `
+      <strong>${app.category}</strong><br>
+      ${app.name} (${app.email})<br>
+      Mode: ${app.mode} | Point: ${app.point || 'N/A'}<br>
+      Status: <span class="status-badge status-pending">${app.status}</span>
+    `;
+    upcomingAppointments.appendChild(div);
+  });
+}
+</script>
+
+</body>
+</html>
