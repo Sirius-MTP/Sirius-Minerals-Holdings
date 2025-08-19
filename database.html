@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mineral Ledger & Database — Sirius Minerals Holdings</title>
+  <meta name="description" content="Search, filter, and export mineral records managed by Sirius Minerals Holdings.">
+  <!-- IMPORTANT: use your existing global stylesheet path -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="logo2.jpeg" />
+
+  <!-- Page-scoped enhancements (uses your CSS variables; safe to keep) -->
+  <style>
+    /* Layout helpers */
+    .toolbar { display:flex; align-items:center; gap:.75rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .toolbar .spacer { flex:1; }
+    .field, .select { position:relative; }
+    .field input, .select select {
+      border:1px solid var(--grey-300);
+      padding:.7rem 1rem .7rem 2.25rem;
+      border-radius: 8px;
+      font:inherit;
+      background:#fff;
+    }
+    .field .icon, .select .icon {
+      position:absolute; left:.65rem; top:50%; transform:translateY(-50%);
+      font-size:1rem; opacity:.6;
+    }
+
+    /* Table look (builds on your card/typography) */
+    .table-wrap { overflow:auto; background:#fff; border:1px solid rgba(0,0,0,.06); border-radius: var(--radius); box-shadow: var(--shadow); }
+    table.data {
+      width:100%; border-collapse: collapse; font-size:.95rem;
+    }
+    .data thead th {
+      position:sticky; top:0; background: var(--black); color:#fff;
+      font-weight:700; text-align:left; padding:.85rem 1rem; white-space:nowrap;
+      cursor:pointer;
+    }
+    .data tbody td { padding:.75rem 1rem; border-top:1px solid var(--grey-300); }
+    .data tbody tr:hover { background: var(--grey-100); }
+    .data .status {
+      display:inline-flex; align-items:center; gap:.4rem; font-weight:600;
+      padding:.2rem .55rem; border-radius:999px; font-size:.85rem;
+    }
+    .status.available { background:rgba(31,143,78,.1); color:var(--green); }
+    .status.processing { background:rgba(15,76,129,.1); color:var(--blue); }
+    .status.pending { background:rgba(212,175,55,.14); color:var(--gold-dark); }
+    .status.unavailable { background:rgba(0,0,0,.08); color:var(--grey-700); }
+
+    /* Pagination */
+    .pagination { display:flex; align-items:center; gap:.5rem; justify-content:flex-end; margin-top:1rem; }
+    .pagination .btn { padding:.5rem .8rem; }
+    .pagination .page-info { color:var(--grey-700); font-size:.9rem; margin-right:.5rem; }
+
+    /* Promotions */
+    .promo { margin-top:2rem; }
+    .promo .slider {
+      position:relative; border-radius: var(--radius); overflow:hidden; box-shadow: var(--shadow);
+    }
+    .promo .slide {
+      display:none; position:relative; height: 320px; background:#000;
+    }
+    .promo .slide.active { display:block; }
+    .promo .slide img { width:100%; height:100%; object-fit:cover; opacity:.9; }
+    .promo .slide .caption {
+      position:absolute; left:1rem; bottom:1rem; background: rgba(0,0,0,.45);
+      color:#fff; padding:.7rem 1rem; border-radius: 8px; max-width:60%;
+    }
+    .promo .controls {
+      position:absolute; inset:0; display:flex; justify-content:space-between; align-items:center; pointer-events:none;
+    }
+    .promo .controls button {
+      pointer-events:auto;
+      background: rgba(0,0,0,.5); color:#fff; border:none; width:42px; height:42px; border-radius:999px; cursor:pointer;
+    }
+    .promo-grid { margin-top:1rem; display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); }
+    .promo-card { border:1px solid rgba(0,0,0,.06); border-radius: var(--radius); overflow:hidden; background:#fff; box-shadow: var(--shadow); }
+    .promo-card img { width:100%; height:160px; object-fit:cover; }
+    .promo-card .body { padding:1rem; }
+    .promo-card .body .title { font-weight:700; margin-bottom:.25rem; }
+
+    /* Small tweaks */
+    .muted-compact { color:var(--grey-500); font-size:.9rem; }
+    .tight { margin-top:.5rem; }
+    @media (max-width: 720px){
+      .promo .slide .caption { max-width:85%; font-size:.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header (identical structure to your site) -->
+  <header>
+    <div class="container inner">
+      <a class="logo" href="home.html">
+        <img src="logo2.jpeg" alt="Sirius Minerals Holdings Logo">
+        Sirius <span style="color:var(--gold)">Minerals</span> Holdings
+      </a>
+      <button class="mobile-toggle" aria-label="Open menu">☰</button>
+      <nav>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="mtp.html">Sirius MTP</a></li>
+          <li><a href="miner-guide.html">Miner Guide</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li><a href="contact.html" class="btn btn-primary">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero / Page title -->
+  <section class="hero" style="min-height:auto; padding:3.25rem 0 2.25rem;">
+    <div class="container">
+      <div class="content">
+        <span class="tag">Data Room</span>
+        <h1 class="tight">Mineral Ledger & Database</h1>
+        <p class="big">Search, filter, and export mineral records curated by Sirius MTP — aligned to compliant trade and transparent provenance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Controls + Table -->
+  <section class="section" style="padding-top:2rem;">
+    <div class="container">
+      <div class="toolbar">
+        <div class="field" style="min-width:260px;">
+          <span class="icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="Search by mineral, location, status…" />
+        </div>
+
+        <div class="select">
+          <span class="icon">⛏️</span>
+          <select id="typeFilter" aria-label="Filter by mineral type">
+            <option value="">All Types</option>
+            <option value="Precious">Precious</option>
+            <option value="Base">Base</option>
+            <option value="Rare">Rare</option>
+            <option value="Semi-Precious">Semi-Precious</option>
+          </select>
+        </div>
+
+        <div class="select">
+          <span class="icon">📍</span>
+          <select id="locationFilter" aria-label="Filter by location">
+            <option value="">All Locations</option>
+            <option value="North-Western Province">North-Western Province</option>
+            <option value="Copperbelt">Copperbelt</option>
+            <option value="Luapula">Luapula</option>
+            <option value="Southern">Southern</option>
+            <option value="Lusaka">Lusaka</option>
+          </select>
+        </div>
+
+        <div class="spacer"></div>
+
+        <button class="btn btn-outline" id="resetFilters">Reset</button>
+        <button class="btn btn-dark" id="exportCsv">Export CSV</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data" id="mineralTable">
+          <thead>
+          <tr>
+            <th data-col="0">Mineral Name</th>
+            <th data-col="1">Type</th>
+            <th data-col="2">Location</th>
+            <th data-col="3">Grade %</th>
+            <th data-col="4">Status</th>
+          </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Keep your existing rows here. Below are examples you can remove -->
+            <tr>
+              <td>Gold</td>
+              <td>Precious</td>
+              <td>North-Western Province</td>
+              <td>94%</td>
+              <td><span class="status available">Available</span></td>
+            </tr>
+            <tr>
+              <td>Copper</td>
+              <td>Base</td>
+              <td>Copperbelt</td>
+              <td>85%</td>
+              <td><span class="status available">Available</span></td>
+            </tr>
+            <tr>
+              <td>Copper</td>
+              <td>Base</td>
+              <td>Copperbelt</td>
+              <td>85%</td>
+              <td><span class="status available">Available</span></td>
+            </tr>
+            <tr>
+              <td>Copper</td>
+              <td>Base</td>
+              <td>Copperbelt</td>
+              <td>85%</td>
+              <td><span class="status processing">Processing</span></td>
+            </tr>
+            <tr>
+              <td>Tantalum</td>
+              <td>Rare</td>
+              <td>Luapula</td>
+              <td>78%</td>
+              <td><span 
+class="status processing">Processing</span></td>
+            </tr>
+            <tr>
+              <td>Tantalum</td>
+              <td>Rare</td>
+              <td>Luapula</td>
+              <td>78%</td>
+              <td><span
+class="status available">Available</span></td>
+            </tr>
+            <tr>
+              <td>Emerald</td>
+              <td>Semi-Precious</td>
+              <td>North-Western Province</td>
+              <td>—</td>
+              <td><span class="status pending">Pending QA</span></td>
+            </tr>
+            <!-- /examples -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination" id="pager">
+        <span class="page-info" id="pageInfo">Page 1</span>
+        <button class="btn btn-outline" id="prevPage" disabled>Prev</button>
+        <button class="btn btn-outline" id="nextPage">Next</button>
+      </div>
+
+      <!-- Promotions / Initiatives -->
+      <div class="promo">
+        <h2>Promotions & Initiatives</h2>
+        <p class="muted-compact">Featured opportunities and seasonal programmes for ASM & cooperatives.</p>
+
+        <!-- Slider -->
+        <div class="slider" id="promoSlider" aria-label="Promotions slider">
+          <div class="slide active">
+            <img src="Promo1.png" alt="Bulk sampling promotion">
+            <div class="caption">
+              <strong>Bulk Sampling Drive</strong><br>
+              Discounted lab testing for registered cooperatives this quarter.
+            </div>
+          </div>
+          <div class="slide">
+            <img src="assets/img/promo2.jpg" alt="Finance onboarding">
+            <div class="caption">
+              <strong>Finance Onboarding</strong><br>
+              Fast-track KYB for access to trade financing through partners.
+            </div>
+          </div>
+          <div class="slide">
+            <img src="assets/img/promo3.jpg" alt="Compliance workshops">
+            <div class="caption">
+              <strong>Compliance Workshops</strong><br>
+              Hands-on clinics on formalisation, traceability & reporting.
+            </div>
+          </div>
+          <div class="controls">
+            <button id="prevSlide" aria-label="Previous">‹</button>
+            <button id="nextSlide" aria-label="Next">›</button>
+          </div>
+        </div>
+
+        <!-- Grid fallback / additional promos -->
+        <div class="promo-grid">
+          <div class="promo-card">
+            <img src="assets/img/promo4.jpg" alt="Equipment rental">
+            <div class="body">
+              <div class="title">Equipment Rental Credit</div>
+              <div class="muted-compact">Short-term rentals for crushing & screening — members only.</div>
+            </div>
+          </div>
+          <div class="promo-card">
+            <img src="Promo1.png" alt="Safety gear">
+            <div class="body">
+              <div class="title">PPE Subsidy</div>
+              <div class="muted-compact">Co-op PPE bundles through certified vendors.</div>
+            </div>
+          </div>
+          <div class="promo-card">
+            <img src="assets/img/promo6.jpg" alt="Logistics lanes">
+            <div class="body">
+              <div class="title">Preferred Logistics Lanes</div>
+              <div class="muted-compact">Discounted rates from regional collection points.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer (identical to site) -->
+  <footer>
+    <div class="container">
+      <div class="top">
+        <div>
+          <a class="logo" href="index.html" style="color:#fff;">
+            <img src="assets/img/logo.svg" alt="Sirius Minerals Holdings Logo">
+            Sirius Minerals Holdings
+          </a>
+          <p class="small muted" style="margin-top:.75rem;">
+            Group holding company of Sirius Minerals Holdings (South Africa) and
+            Sirius Minerals & Precious Stones Ltd (Zambia).
+          </p>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul style="list-style:none; padding:0; margin:0;">
+            <li><a href="about.html">About</a></li>
+            <li><a href="mtp.html">Sirius MTP</a></li>
+            <li><a href="miner-guide.html">Miner Guide</a></li>
+            <li><a href="features.html">Features</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Get in touch</h4>
+          <ul style="list-style:none; padding:0; margin:0;">
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="sirius.minerals@yahoo.com">sirius.minerals@yahoo.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="bottom">
+        © <span id="year"></span> Sirius Minerals Holdings. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+  <script>
+    // Set footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Add 'active' to nav link
+    const path = window.location.pathname.split('/').pop();
+    document.querySelectorAll('nav a').forEach(a => {
+      const href = a.getAttribute('href');
+      if (href === path || (href === 'home.html' && path === '')) a.classList.add('active');
+    });
+
+    // Table: sort, filter, search, paginate
+    const table = document.getElementById('mineralTable');
+    const tbody = document.getElementById('tableBody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    let sortState = { col: null, dir: 1 };
+    let page = 1, perPage = 10, filtered = rows.slice();
+
+    function renderPage(){
+      // Clear
+      tbody.innerHTML = '';
+      const start = (page-1)*perPage;
+      const pageRows = filtered.slice(start, start+perPage);
+      pageRows.forEach(r => tbody.appendChild(r));
+      document.getElementById('pageInfo').textContent =
+        `Page ${page} of ${Math.max(1, Math.ceil(filtered.length / perPage))}`;
+      document.getElementById('prevPage').disabled = page === 1;
+      document.getElementById('nextPage').disabled = page >= Math.ceil(filtered.length / perPage);
+    }
+
+    function sortBy(col){
+      const ths = table.querySelectorAll('thead th');
+      ths.forEach(th => th.removeAttribute('data-sort'));
+      if (sortState.col === col) sortState.dir *= -1; else { sortState.col = col; sortState.dir = 1; }
+      ths[col].setAttribute('data-sort', sortState.dir === 1 ? 'asc' : 'desc');
+
+      filtered.sort((a,b)=>{
+        const ax = a.children[col].innerText.trim().toLowerCase();
+        const bx = b.children[col].innerText.trim().toLowerCase();
+        // numeric-aware for Grade %
+        if (col === 3){
+          const na = parseFloat(ax) || -Infinity;
+          const nb = parseFloat(bx) || -Infinity;
+          return (na - nb) * sortState.dir;
+        }
+        return ax > bx ? sortState.dir : ax < bx ? -sortState.dir : 0;
+      });
+      page = 1; renderPage();
+    }
+
+    function applyFilters(){
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const type = document.getElementById('typeFilter').value;
+      const loc = document.getElementById('locationFilter').value;
+
+      filtered = rows.filter(r=>{
+        const cells = Array.from(r.cells).map(td => td.innerText.toLowerCase());
+        const passQuery = !q || cells.some(c => c.includes(q));
+        const passType = !type || r.cells[1].innerText === type;
+        const passLoc = !loc || r.cells[2].innerText === loc;
+        return passQuery && passType && passLoc;
+      });
+
+      // if a sort is active, keep it
+      if (sortState.col !== null) {
+        const col = sortState.col;
+        const dir = sortState.dir;
+        filtered.sort((a,b)=>{
+          const ax = a.children[col].innerText.trim().toLowerCase();
+          const bx = b.children[col].innerText.trim().toLowerCase();
+          if (col === 3){
+            const na = parseFloat(ax) || -Infinity;
+            const nb = parseFloat(bx) || -Infinity;
+            return (na - nb) * dir;
+          }
+          return ax > bx ? dir : ax < bx ? -dir : 0;
+        });
+      }
+      page = 1; renderPage();
+    }
+
+    // Events
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+    document.getElementById('typeFilter').addEventListener('change', applyFilters);
+    document.getElementById('locationFilter').addEventListener('change', applyFilters);
+    document.getElementById('resetFilters').addEventListener('click', ()=>{
+      document.getElementById('searchInput').value = '';
+      document.getElementById('typeFilter').value = '';
+      document.getElementById('locationFilter').value = '';
+      filtered = rows.slice(); sortState = { col:null, dir:1 }; page=1; renderPage();
+      table.querySelectorAll('thead th').forEach(th=>th.removeAttribute('data-sort'));
+    });
+    document.querySelectorAll('thead th[data-col]').forEach(th=>{
+      th.addEventListener('click', ()=> sortBy(parseInt(th.dataset.col,10)));
+    });
+
+    document.getElementById('prevPage').addEventListener('click', ()=>{ if (page>1){ page--; renderPage(); } });
+    document.getElementById('nextPage').addEventListener('click', ()=>{ const max = Math.ceil(filtered.length/perPage); if (page<max){ page++; renderPage(); } });
+
+    // Export CSV
+    document.getElementById('exportCsv').addEventListener('click', ()=>{
+      const allRows = [Array.from(table.tHead.rows[0].cells).map(th=>th.innerText)];
+      filtered.forEach(r=>{
+        allRows.push(Array.from(r.cells).map(td => td.innerText.replace(/\s+/g,' ').trim()));
+      });
+      const csv = allRows.map(row => row.map(v => `"${v.replace(/"/g,'""')}"`).join(',')).join('\n');
+      const blob = new Blob([csv], { type:'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'sirius_mineral_database.csv';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    });
+
+    // Init table render
+    filtered = rows.slice();
+    renderPage();
+
+    // Promo slider
+    const slides = Array.from(document.querySelectorAll('.promo .slide'));
+    let idx = 0;
+    function show(i){
+      slides.forEach((s, j)=> s.classList.toggle('active', j===i));
+    }
+    document.getElementById('prevSlide').addEventListener('click', ()=>{
+      idx = (idx - 1 + slides.length) % slides.length; show(idx);
+    });
+    document.getElementById('nextSlide').addEventListener('click', ()=>{
+      idx = (idx + 1) % slides.length; show(idx);
+    });
+  </script>
+</body>
+</html>
