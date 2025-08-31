@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sirius Minerals Holdings – Formalising Africa’s Mineral Trade</title>
+  <meta name="description" content="Sirius Minerals Holdings: Streamlined mineral trade & formalisation across Zambia & South Africa via the Sirius Mineral Trade Platform (Sirius MTP).">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="logo.jpg" />
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    /* Map Section Styles */
+    #mtp-map {
+      height: 500px;
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 20px;
+      border: 3px solid var(--gold);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .map-search {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin: 15px 0;
+    }
+    .map-search input {
+      flex: 1;
+      max-width: 300px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .map-search button {
+      background: linear-gradient(135deg, #d4af37, #a8891c);
+      color: #fff;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .map-search button:hover {
+      background: linear-gradient(135deg, #a8891c, #d4af37);
+    }
+    @media (max-width: 768px) {
+      .map-search {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container inner">
+      <a class="logo" href="index.html">
+        <img src="logo2.jpeg" alt="Sirius Minerals Holdings Logo">
+        Sirius <span style="color:var(--gold)">Minerals</span> Holdings
+      </a>
+
+      <button class="mobile-toggle" aria-label="Open menu">☰</button>
+
+      <nav>
+        <ul> <li><a href="index.html">Home</a></li>
+        <li><a href="mtp.html">Sirius MTP</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="miner-guide.html">Miner Guide</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html" class="btn btn-primary">Services</a></li>
+        <li><a href="contact.html" class="btn btn-outline">Contact</a></li>
+      </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <img class="hero-illus" src="hero.jpeg" alt="" />
+    <div class="container">
+      <div class="content fade-in-up">
+        <span class="tag">Sirius Mineral Trade Platform (MTP)</span>
+        <h1>Formalising & Accelerating Mineral Trade in Zambia & South Africa</h1>
+        <p class="big">
+          Sirius Minerals Holdings (South Africa & Zambia) powers inclusive mineral trade growth
+          through its flagship Sirius - MTP connecting artisanal & small‑scale miners, sellers,
+          buyers, and regulators via trusted, data‑driven infrastructure.
+        </p>
+        <div class="actions">
+          <a href="features.html" class="btn btn-primary">Explore Sirius MTP</a>
+          <a href="#what-we-do" class="btn btn-outline">What we do</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What we do -->
+  <section id="what-we-do" class="section">
+    <div class="container">
+      <h2 class="text-center">What We Do</h2>
+      <p class="text-center muted">Building a bankable, transparent, and efficient mineral trade ecosystem.</p>
+
+      <div class="grid grid-3 section-tight">
+        <div class="card">
+          <div class="title">Trade Infrastructure (Sirius MTP)</div>
+          <p>Digital rails for compliant mineral sourcing, pricing, documentation, and cross-border deal flow.</p>
+        </div>
+        <div class="card">
+          <div class="title">Formalisation & Compliance</div>
+          <p>Helping artisanal & small-scale miners meet regulatory, ESG, and market requirements.</p>
+        </div>
+        <div class="card">
+          <div class="title">Market Access & Liquidity</div>
+          <p>Connecting verified miners & sellers to local & international buyers with transparent contracts.</p>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="muted small">Registered Miners / Cooperatives</div>
+          <h3>300+</h3>
+        </div>
+        <div class="stat">
+          <div class="muted small">International Buyers</div>
+          <h3>15</h3>
+        </div>
+        <div class="stat">
+          <div class="muted small">Monthly Customer Growth</div>
+          <h3>150%</h3>
+        </div>
+        <div class="stat">
+          <div class="muted small">Pilot Regions</div>
+          <h3>Zambia &amp; South Africa</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pilot Regions with Map -->
+  <section class="section" id="pilot-regions">
+    <div class="container">
+      <h2 class="text-center">Pilot Regions: Zambia & South Africa</h2>
+      <p class="text-center muted">
+        Explore our Sirius MTP map showing registered cooperatives and trade points.
+      </p>
+      <!-- Map Search -->
+      <div class="map-search">
+        <input type="text" id="searchInput" placeholder="Search cooperative name..." />
+        <button id="searchBtn">Search</button>
+      </div>
+      <!-- Map -->
+      <div id="mtp-map"></div>
+    </div>
+  </section>
+
+  <!-- Timeline / Accomplishments -->
+  <section class="section grey-bg">
+    <div class="container">
+      <h2 class="text-center">Accomplishments & Milestones</h2>
+      <div class="timeline section-tight">
+        <div class="timeline-item">
+          <h3>2024 — MOU with 2 Cooperatives (300+ miners)</h3>
+          <p>Formal supplier relationships established & strengthening compliant access to mineral ores.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>2024 — 15 International Buyers Onboarded</h3>
+          <p>3 buyers immediately ready to purchase under LOIs.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>2025 — Sirius MTP Alpha</h3>
+          <p>Core features in place: onboarding, KYC/KYB, deal registration, trade contracts & compliance modules.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>2025 — Expansion & Productisation</h3>
+          <p>Full public launch with marketplace & financing rails.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="section">
+    <div class="container">
+      <div class="callout">
+        <h2>Ready to Trade, Supply, or Buy Minerals?</h2>
+        <p>
+          Join the Sirius MTP to access verified supply, trusted buyers, automated docs,
+          escrow, compliance, and real-time deal visibility.
+        </p>
+        <a href="mtp.html#signup" class="btn btn-primary">Sign up to Sirius MTP</a>
+        <a href="miner-guide.html" class="btn btn-outline" style="margin-left:.5rem;">Miner Guide</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="top">
+        <div>
+          <a class="hero-footer-logo" href="index.html" style="color:#fff;">
+            <img src="footer2.jpeg" alt="Sirius Minerals Holdings Logo">
+            Sirius Minerals Holdings
+          </a>
+          <p class="small muted" style="margin-top:.75rem;">
+            Group holding company of Sirius Minerals Holdings (South Africa) and
+            Sirius Minerals & Precious Stones Ltd (Zambia). </a>
+        <p class="small muted" style="margin-top:.75rem;">
+
+Registered Entities in both countries and Certified Mineral Trading Permits under Ministry of Mines and Minerals Development (Zambia)
+          </p>
+        </div>
+        <div>
+           <h4>Company</h4>
+        <ul style="list-style:none; padding:0; margin:0;">
+          <li><a href="about.html">About</a></li>
+          <li><a href="mtp.html">Sirius MTP</a></li>
+          <li><a href="miner-guide.html">Miner Guide</a></li>
+          <li><a href="services.html">Services</a></li>
+        </div>
+        <div>
+          <h4>Get in touch</h4>
+          <ul style="list-style:none; padding:0; margin:0;">
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="info@sirius-mtp.co.za">info@sirius-mtp.co.za</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bottom">
+        © <span id="year"></span> Sirius Minerals Holdings. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize Map
+    const map = L.map('mtp-map').setView([-13.1339, 27.8493], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Cooperative data
+    const cooperatives = [
+      { name: "Kasempa Gold Co-op", lat: -13.8, lng: 25.85, mineral: "Gold", miners: 2000 },
+      { name: "Chingola Copper Co-op", lat: -12.5, lng: 27.85, mineral: "Copper", miners: 4045 },
+      { name: "Mkushi Manganese Co-op", lat: -13.6, lng: 29.2, mineral: "Manganese", miners: 520 },
+      { name: "Solwezi Cobalt Co-op", lat: -12.18, lng: 26.4, mineral: "Cobalt", miners: 4533 },
+      { name: "Mazabuka Emerald Co-op", lat: -15.85, lng: 27.75, mineral: "Emeralds", miners: 218 },
+      { name: "Serenje Nickel Co-op", lat: -13.3, lng: 30.2, mineral: "Nickel", miners: 2022 }
+    ];
+
+    const markers = [];
+
+    cooperatives.forEach(c => {
+      const marker = L.circleMarker([c.lat, c.lng], {
+        color: '#d4af37',
+        fillColor: '#f2e8c9',
+        fillOpacity: 0.8,
+        radius: 8 + Math.min(c.miners / 10, 10)
+      }).addTo(map);
+
+      marker.bindPopup(`<strong>${c.name}</strong><br/>Mineral: ${c.mineral}<br/>Miners: ${c.miners}`);
+      markers.push({ ...c, marker });
+    });
+
+    // Search function
+    document.getElementById('searchBtn').onclick = function () {
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      if (!query) return;
+
+      const match = markers.find(c => c.name.toLowerCase().includes(query));
+      if (match) {
+        map.setView([match.lat, match.lng], 12);
+        match.marker.openPopup();
+      } else {
+        alert("No matching cooperative found.");
+      }
+    };
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
